@@ -1,0 +1,287 @@
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100%;
+}
+
+.noShow {
+  display: none;
+}
+
+.perfiles {
+  height: 100vh;
+  background: black;
+  color: white;
+}
+.perfiles .logo {
+  height: 10vh;
+}
+.perfiles .content {
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.perfiles .content .users {
+  margin: 0 auto;
+  grid-gap: 2rem 1rem;
+  text-align: center;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+.perfiles .content .users .user {
+  padding: 0 0.5rem;
+}
+.perfiles .content .users .user .imageUser {
+  width: 25vw;
+  height: 25vw;
+  border-radius: 5px;
+}
+.perfiles .content .users .user h2 {
+  font-size: 1rem;
+  font-weight: 100;
+}
+.perfiles .content .users .user .iconLocked {
+  height: 15px;
+}
+.perfiles .content h1 {
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.modalPassword {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.9);
+}
+.modalPassword .container {
+  background: #484848;
+  height: 200px;
+  width: 70%;
+  position: relative;
+  top: calc(50vh - 100px);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 0 60px;
+}
+.modalPassword .container .inputPassword {
+  color: white;
+  background: transparent;
+  border: transparent;
+  border-bottom: 2px solid rgba(144, 144, 144, 0.87);
+}
+.modalPassword .container a {
+  text-decoration: underline;
+}
+.modalPassword .container .cancelar {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: transparent;
+  color: white;
+  border: transparent;
+  margin: 15px;
+}
+
+.encabezado {
+  position: relative;
+  height: 120vw;
+  padding: 10px;
+  background: rgba(144, 144, 144, 0.87);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.headerLogo {
+  width: 20px;
+}
+.headerMore {
+  display: flex;
+  align-items: center;
+}
+.headerMore .iconSearch {
+  width: 20px;
+}
+.headerMore img {
+  width: 30px;
+  height: 30px;
+  border-radius: 5px;
+  margin-left: 25px;
+}
+
+.menuNavegacion {
+  display: flex;
+  justify-content: space-around;
+  padding: 15px 0;
+}
+.menuNavegacion li {
+  list-style: none;
+  color: white;
+}
+.menuNavegacion li a {
+  cursor: pointer;
+}
+
+.details {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.details .categorys {
+  display: flex;
+  font-size: 0.7rem;
+}
+.details .categorys li {
+  list-style: none;
+  margin: 20px 10px;
+  color: white;
+}
+.details .actions {
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+  color: white;
+  align-items: center;
+}
+.details .actions .myList, .details .actions .informationMore {
+  text-align: center;
+}
+.details .actions .myList svg, .details .actions .informationMore svg {
+  width: 20px;
+}
+.details .actions .myList p, .details .actions .informationMore p {
+  font-size: 0.7rem;
+}
+.details .actions .reproduction {
+  display: flex;
+  padding: 10px 20px;
+  border-radius: 2px;
+  background: rgba(0, 0, 0, 0.7);
+  align-self: center;
+}
+.details .actions .reproduction svg {
+  width: 16px;
+  margin-right: 10px;
+}
+.details .actions .reproduction p {
+  font-size: 1.1rem;
+}
+
+.contenido {
+  background: black;
+  color: white;
+}
+
+.category {
+  padding: 15px;
+}
+.category:nth-of-type(2) {
+  margin-bottom: 7vw;
+}
+.category:nth-of-type(2) .content {
+  height: 46vw;
+}
+
+.contents {
+  display: flex;
+  padding: 5px 0;
+}
+.contents .history {
+  width: 27vw;
+  height: 27vw;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-right: 10px;
+  border: 2px solid red;
+  background: url("../images/image0.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.contents .content {
+  width: 27vw;
+  height: 37vw;
+  flex-shrink: 0;
+  border-radius: 5px;
+  contain: content;
+  background: url("../images/image0.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  margin-right: 9px;
+  cursor: pointer;
+}
+.contents .content .play, .contents .content .more {
+  position: absolute;
+  right: 0;
+  left: 0;
+}
+.contents .content .play {
+  top: 0;
+  bottom: 7vw;
+  text-align: center;
+}
+.contents .content .play svg {
+  width: 50%;
+  height: 100%;
+}
+.contents .content .more {
+  height: 8vw;
+  bottom: 0;
+  background: #1d1d1d;
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 22px;
+}
+.contents .content .more .iconInfo {
+  width: 24px;
+}
+.contents .content .more .iconMorePounts {
+  width: 4.6px;
+}
+
+.profileInfo .profile .users {
+  margin: 0 auto;
+  grid-gap: 2rem 1rem;
+  text-align: center;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+}
+.profileInfo .profile .users .user {
+  padding: 0 0.5rem;
+}
+.profileInfo .profile .users .user .imageUser {
+  width: 25vw;
+  height: 25vw;
+  border-radius: 5px;
+}
+.profileInfo .profile .users .user h2 {
+  font-size: 1rem;
+  font-weight: 100;
+}
+.profileInfo .profile .users .user .iconLocked {
+  height: 15px;
+}
+
+.proximamente {
+  background: red;
+}

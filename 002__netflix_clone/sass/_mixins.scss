@@ -1,0 +1,33 @@
+@mixin gridColumn($columns){
+    display: grid;
+    grid-template-columns: repeat($columns,1fr);
+}
+@mixin background($image){
+    background: url('../images/#{$image}.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+@mixin profile($columns) {
+    .users{
+        margin: 0 auto;
+        grid-gap: 2rem 1rem;
+        text-align: center;
+        @include gridColumn($columns);
+        .user{
+            padding: 0 .5rem;
+            .imageUser{
+                width: 25vw;
+                height: 25vw;
+                border-radius: 5px;
+            }
+            h2{
+                font-size: 1rem;
+                font-weight: 100;
+            }
+            .iconLocked{
+                height: 15px;
+            }
+        }
+    }
+}

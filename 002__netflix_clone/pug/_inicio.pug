@@ -1,0 +1,38 @@
+.inicio.noShow
+    .encabezado
+        .header
+            .headerLogo
+                +iconNetflix
+            .headerMore
+                +iconSearch
+                img(src="images/image0.png", alt="Imagen Profile")
+
+        nav.menu
+            ul.menuNavegacion
+                li
+                    a Series
+                li
+                    a Películas
+                li
+                    a Mi lista
+        
+        .details
+            .categorys
+                li Siniestro
+                li Emocionante
+                li TV de ciencia ficción
+                li Thriller
+            .actions
+                .myList
+                    +iconMore
+                    p Mi lista
+                .reproduction
+                    +iconPlay
+                    p Reproducir
+                .informationMore
+                    +iconInfo
+                    p Información
+    .contenido
+        +contenido
+
+
