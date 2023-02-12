@@ -1,0 +1,120 @@
+/*
+Small ≥576px
+Medium ≥768px
+Large ≥992px
+Extra large ≥1200px
+Extra extra large ≥1400px
+*/
+
+@media screen and (min-width: 576px){
+    .icon-menu-left-burger{
+        margin-right: 10px;
+    }
+    .menu-bar-left img{
+        width: 90px;
+    }
+    .menu-bar-left span{
+        padding-left: 3px;
+        font-size: 8px;
+    }
+    .menu-bar-left{
+        margin-right: 0;
+    }
+    .icon-menu-righ{
+        padding: 0 15px;
+    }/*.menu-right-items .image-profile*/
+    .menu-notifications{
+        right: 85px;
+    }
+    .video-content,
+    .mix-content{
+        grid-template-columns: repeat(2, minmax(240px, 360px));
+    }
+}
+
+@media screen and (min-width: 600px){
+    .video-content,
+    .mix-content{
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+    .icon-menu-righ.icon-search{
+        display: none;
+    }
+    /************ BUSCADOR*/
+    .search-bar{
+        grid-template-columns: minmax(40px, 574px) 64px;
+        margin: 0 0 0 35px;
+        position: relative;
+    }
+    .iconBack{
+        display: none;
+    }
+}
+
+@media screen and (min-width: 768px){
+    /* MENU PEQUEÑO DE PRESENTACIÓN */
+    .menu-left-small{
+        display: block;
+        width: 72px;
+        position: fixed;
+        left: 0;
+        top: 56px;
+        padding: 5px 0;
+        text-align: center;
+        height: 100vh;
+        background: #ffffff;
+        z-index: 1;
+    }
+    .menu-left-small.hidden{
+        display: none;
+    }
+    .left-small-item{
+        text-decoration: none;
+        color: #606060;
+        font-family: 'Roboto', sans-serif;
+        font-weight: 500;
+    }
+    .container-left-small-item{
+        padding: 15px 0 17px;
+    }
+    .icon-menu-left-small{
+        font-size: 22px;
+    }
+    .menu-left-small p{
+        margin: 6px 0 0;
+        font-size: 9px;
+        letter-spacing: .5px;
+    }
+    /**************** MAIN*/
+    .main-content{
+        margin-left: 72px;
+    }
+}
+
+@media screen and (min-width: 992px){
+    .video-content,
+    .mix-content{
+        grid-template-columns: repeat(3, minmax(240px, 360px));
+    }
+}
+
+@media screen and (min-width: 1200px){
+    .video-content,
+    .mix-content{
+        grid-template-columns: repeat(4, minmax(240px, 370px));
+    }
+}
+
+@media screen and (min-width: 1400px){
+    .main-content.marginLeftLarge{
+        margin-left: 242px;
+    }
+}
+
+@media screen and (min-width: 1800px){
+    .video-content,
+    .mix-content{
+        grid-template-columns: repeat(5, minmax(240px, 360px));
+    }
+}
