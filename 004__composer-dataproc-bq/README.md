@@ -85,6 +85,10 @@ sh scripts/deploy_gcp.sh
 
 ## Remove deployment
 
-Execute the script for local or 
+Execute the script for delete local or cloud environment
 ```bash
+sh scripts/down.sh -l      # for local delete
+sh scripts/down.sh --local # for local delete
+sh scripts/down.sh -c      # for cloud delete
+sh scripts/down.sh --cloud # for cloud delete
 ```
