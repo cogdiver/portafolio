@@ -1,9 +1,11 @@
 steps:
-# create dataset
-- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-  entrypoint: 'bq'
-  timeout: 240s
-  args: ['mk', '${PROJECT_ID}:test_build']
+- name: 'ubuntu'
+  args: ['echo', 'hello world']
+# # create dataset
+# - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+#   entrypoint: 'bq'
+#   timeout: 240s
+#   args: ['mk', '${PROJECT_ID}:test_build']
   # env:
   # - 'CLOUDSDK_COMPUTE_REGION=us-central1'
   # - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
