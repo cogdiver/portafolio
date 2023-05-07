@@ -1,6 +1,6 @@
-# Proof of concept
+# ETL (GCS / Bigquery / Dataproc / Composer)
 
-Implement architecture for ETL with the following GCP services
+Proof of concept for file upload ETL from GCS to Bigquery with Dataproc orchestrated with Composer. Implement architecture for ETL with the following GCP services
 - Composer
 - GCS
 - Dataproc
