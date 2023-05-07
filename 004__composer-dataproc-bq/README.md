@@ -17,8 +17,8 @@ cp .env.sample .env
 
 Replace values for GCP information
 ```
-ACCOUNT=<GCP_ACCOUNT>
-PROJECT=<GCP_PROJECT>
+ACCOUNT=<ACCOUNT>
+PROJECT=<PROJECT_ID>
 ```
 
 Download GCP json credential and copy it in `dags/connections/gcp_credentials.json`
