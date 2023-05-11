@@ -1,3 +1,7 @@
+options:
+  logging: none
+  # logsBucket: [NOMBRE_DE_TU_BUCKET]
+
 substitutions:
   _FOLDER: "005__build-workflows"
   _WORKFLOW_NAME: "workflow"
