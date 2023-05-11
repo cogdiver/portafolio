@@ -1,5 +1,5 @@
 options:
-  logging: 'NONE'
+  logging: cloud-logging-only
   # logsBucket: [NOMBRE_DE_TU_BUCKET]
 
 substitutions:
