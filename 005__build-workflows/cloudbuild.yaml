@@ -11,14 +11,14 @@ steps:
 - name: 'ubuntu'
   args: ["ls", "${_FOLDER}"]
 
-# - name: 'gcr.io/cloud-builders/gcloud'
-#   args:
-#     # - 'beta'
-#     - 'workflows'
-#     - 'deploy'
-#     - '${_WORKFLOW_NAME}'
-#     - '--source'
-#     - '${_FOLDER}/workflow.yaml'
+- name: 'gcr.io/cloud-builders/gcloud'
+  args:
+    # - 'beta'
+    - 'workflows'
+    - 'deploy'
+    - '${_WORKFLOW_NAME}'
+    - '--source'
+    - '${_FOLDER}/workflow.yaml'
     # - '--region'
     # - 'us-central1'
     # - '--replace'
