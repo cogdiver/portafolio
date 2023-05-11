@@ -1,5 +1,5 @@
 options:
-  logging: none
+  logging: 'NONE'
   # logsBucket: [NOMBRE_DE_TU_BUCKET]
 
 substitutions:
