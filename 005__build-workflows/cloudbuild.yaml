@@ -1,6 +1,6 @@
 steps:
 - name: 'ubuntu'
-  args: ['echo', 'hello world']
+  args: ['ls']
 # # create dataset
 # - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
 #   entrypoint: 'bq'
