@@ -3,7 +3,8 @@ substitutions:
 
 steps:
 - name: 'ubuntu'
-  args: ["ls","005__build-workflows"]
+  args: ["echo","005__build-workflows"]
+  # args: ["ls","005__build-workflows"]
     # - "-c"
     # # - "ls $$FOLDER"
     # - 
