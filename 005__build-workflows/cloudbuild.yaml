@@ -3,10 +3,10 @@ substitutions:
 
 steps:
 - name: 'ubuntu'
-  args:
-    - "-c"
-    # - "ls $$FOLDER"
-    - "ls 005__build-workflows"
+  args: ["ls","005__build-workflows"]
+    # - "-c"
+    # # - "ls $$FOLDER"
+    # - 
 
 
 # # create dataset
