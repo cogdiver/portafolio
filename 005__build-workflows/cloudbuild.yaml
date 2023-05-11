@@ -3,7 +3,7 @@
 
 steps:
 - name: 'ubuntu'
-  args: ["echo","$$FOLDER"]
+  args: ["echo","$FOLDER"]
   # args: ["echo","005__build-workflows"]
   # args: ["ls","005__build-workflows"]
     # - "-c"
