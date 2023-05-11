@@ -1,14 +1,22 @@
 substitutions:
   _FOLDER: "005__build-workflows"
+  _WORKFLOW_NAME: "workflow"
 
 steps:
 - name: 'ubuntu'
   args: ["ls", "${_FOLDER}"]
-  # args: ["echo","005__build-workflows"]
-  # args: ["ls","005__build-workflows"]
-    # - "-c"
-    # # - "ls $$FOLDER"
-    # - 
+
+- name: 'gcr.io/cloud-builders/gcloud'
+  args:
+    # - 'beta'
+    - 'workflows'
+    - 'deploy'
+    - '${_WORKFLOW_NAME}'
+    - '--source'
+    - '${_FOLDER}/workflow.yaml'
+    # - '--region'
+    # - 'us-central1'
+    # - '--replace'
 
 
 # # create dataset
