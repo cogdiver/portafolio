@@ -1,6 +1,9 @@
+substitutions:
+  FOLDER: "005__build-workflows"
+
 steps:
 - name: 'ubuntu'
-  args: ['ls']
+  args: ['ls', "$$FOLDER"]
 # # create dataset
 # - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
 #   entrypoint: 'bq'
