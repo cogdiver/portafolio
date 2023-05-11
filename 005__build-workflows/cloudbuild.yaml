@@ -1,5 +1,6 @@
 options:
-  logging: cloud-logging-only
+  # logging: cloud-logging-only
+  logging: 'STACKDRIVER'
   # logsBucket: [NOMBRE_DE_TU_BUCKET]
 
 substitutions:
