@@ -1,5 +1,5 @@
 substitutions:
-  FOLDER: "005__build-workflows"
+  _FOLDER: "005__build-workflows"
 
 steps:
 - name: 'ubuntu'
