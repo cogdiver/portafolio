@@ -8,8 +8,8 @@ substitutions:
   _WORKFLOW_NAME: "workflow"
 
 steps:
-- name: 'ubuntu'
-  args: ["ls", "${_FOLDER}"]
+# - name: 'ubuntu'
+#   args: ["ls", "${_FOLDER}"]
 
 - name: 'gcr.io/cloud-builders/gcloud'
   args:
