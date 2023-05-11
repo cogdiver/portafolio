@@ -3,7 +3,7 @@ substitutions:
 
 steps:
 - name: 'ubuntu'
-  args: ['ls', "$$FOLDER"]
+  args: ['ls', "$FOLDER"]
 # # create dataset
 # - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
 #   entrypoint: 'bq'
