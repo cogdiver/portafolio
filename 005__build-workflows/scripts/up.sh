@@ -8,4 +8,4 @@ env_file=".env"
 source $env_file
 
 # Set permissions
-gcloud projects add-iam-policy-binding $PROJECT --member=user:$ACCOUNT --role=roles/workflows.editor
+gcloud projects add-iam-policy-binding $PROJECT --member=user:$ACCOUNT --role=roles/workflows.admin
