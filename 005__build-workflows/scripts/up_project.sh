@@ -15,6 +15,7 @@ Help() {
     echo "-h | --help          Print this message"
     echo "-c | --create        Create Project services"
     echo "-p | --permissions   Set Project Permissions"
+    echo "-a | --apis          Enable Required APIs"
 }
 
 CreateServices() {
@@ -23,6 +24,12 @@ CreateServices() {
 
     # Bigquery (Dataset)
     bq mk $DATASET
+}
+
+EnableAPIs() {
+    gcloud services enable dataflow.googleapis.com
+    gcloud services enable datapipelines.googleapis.com
+    gcloud services enable cloudscheduler.googleapis.com
 }
 
 SetPermissions() {
@@ -49,6 +56,7 @@ elif [[ $# == 1 ]]; then
         -h | --help) Help;;
         -c | --create) CreateServices;;
         -p | --permissions) SetPermissions;;
+        -a | --apis) EnableAPIs;;
         *) echo "'$1' is not a valid option. See ./up_project.sh --help"
         Help;;
     esac
