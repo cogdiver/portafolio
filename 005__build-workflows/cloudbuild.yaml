@@ -25,7 +25,8 @@ steps:
   args:
     - '-c'
     - |
-      cat ${_FOLDER}/database/sp_1.sql | bq query --nouse_legacy_sql
+      cat ${_FOLDER}/database/*.sql | bq query --nouse_legacy_sql
+
 # gcloud auth activate-service-account --key-file=<ruta_del_archivo_clave>
 # bq query --use_legacy_sql=false --project_id=<tu_id_de_proyecto> --nouse_cache --replace --destination_table=<tabla_de_destino> 'SELECT * FROM `dataset.tabla` LIMIT 10'
 
