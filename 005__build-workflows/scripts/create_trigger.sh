@@ -15,4 +15,3 @@ gcloud builds triggers create github \
   --repo-owner=$GITHUB_REPO_OWNER \
   --branch-pattern=$BRANCH_PATTERN \
   --build-config=$BUILD_CONFIG_FILE
-  # --service-account="projects/$PROJECT/serviceAccounts/$SERVICE_ACCOUNT@$PROJECT.iam.gserviceaccount.com"
