@@ -12,9 +12,15 @@ def count_words(data):
 def run_pipeline(input_file):
     with beam.Pipeline() as pipeline:
         lines = pipeline | "ReadInputData" >> beam.io.ReadFromText(input_file)
-        counts = count_words(lines)
-        print(counts)
+        count_words(lines)
+        # counts = count_words(lines)
+        # print(counts)
 
 if __name__ == '__main__':
-    print(sys.argv)
-    run_pipeline('gs://005__build-workflows/template/input.txt')
+    if len(sys.argv) < 2:
+        print("Se requiere especificar el nombre del archivo de entrada.")
+        sys.exit(1)
+
+    input_file = sys.argv[1]
+    run_pipeline(input_file)
+# run_pipeline('gs://005__build-workflows/template/input.txt')

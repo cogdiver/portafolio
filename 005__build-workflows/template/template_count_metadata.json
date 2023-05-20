@@ -1,0 +1,30 @@
+{
+  "name": "my-template",
+  "description": "My Dataflow template",
+  "parameters": [
+    {
+      "name": "inputFile",
+      "label": "Input File",
+      "helpText": "Path to the input file",
+      "isOptional": false,
+      "regexes": [
+        {
+          "pattern": "^gs://.*$",
+          "helpText": "Input file must be a Google Cloud Storage URI"
+        }
+      ]
+    },
+    {
+      "name": "outputTable",
+      "label": "Output Table",
+      "helpText": "BigQuery table to write the results to",
+      "isOptional": false,
+      "regexes": [
+        {
+          "pattern": "^project-id:.+\\.dataset\\.table$",
+          "helpText": "Output table must be in the format 'project-id:dataset.table'"
+        }
+      ]
+    }
+  ]
+}
