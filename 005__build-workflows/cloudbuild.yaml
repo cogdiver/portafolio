@@ -29,7 +29,7 @@ steps:
 #       cat ${_FOLDER}/database/*.sql | bq query --nouse_legacy_sql
 
 # Build Dataflow template
-- name: 'gcr.io/cloud-builders/python'
+- name: python
   entrypoint: 'bash'
   args:
     - '-c'
