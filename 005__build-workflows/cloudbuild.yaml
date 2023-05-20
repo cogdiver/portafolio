@@ -19,13 +19,15 @@ steps:
 #     - 'gs://${_BUCKET_NAME}/template/'
 
 # - name: 'google/cloud-sdk'
-- name: 'gcr.io/cloud-builders/bq'
+# - name: 'gcr.io/cloud-builders/bq'
+- name: 'gcr.io/cloud-builders/gcloud'
   entrypoint: 'bash'
   args:
     - '-c'
     - |
-      gcloud components install bq --quiet
       cat ${_FOLDER}/database/sp_1.sql | bq query --nouse_legacy_sql
+# gcloud auth activate-service-account --key-file=<ruta_del_archivo_clave>
+# bq query --use_legacy_sql=false --project_id=<tu_id_de_proyecto> --nouse_cache --replace --destination_table=<tabla_de_destino> 'SELECT * FROM `dataset.tabla` LIMIT 10'
 
 # - '--project=<ID_DEL_PROYECTO>'
 # - '--dataset=<NOMBRE_DEL_DATASET>'
