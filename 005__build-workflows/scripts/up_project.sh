@@ -37,7 +37,7 @@ SetPermissions() {
     # To execute bigquery queries from cloudbuild
     gcloud projects add-iam-policy-binding $PROJECT \
         --member=serviceAccount:$PROJECT_NUMBER@cloudbuild.gserviceaccount.com \
-        --role=roles/bigquery.jobUser
+        --role=roles/bigquery.admin
 }
 
 
