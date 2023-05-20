@@ -13,12 +13,12 @@ steps:
 #     - '--source'
 #     - '${_FOLDER}/workflow.yaml'
 
-# # Copy required file to Cloud Storage
-# - name: 'gcr.io/cloud-builders/gsutil'
-#   args:
-#     - 'cp'
-#     - '${_FOLDER}/template/*'
-#     - 'gs://${_BUCKET_NAME}/template/'
+# Copy required file to Cloud Storage
+- name: 'gcr.io/cloud-builders/gsutil'
+  args:
+    - 'cp'
+    - '${_FOLDER}/template/*'
+    - 'gs://${_BUCKET_NAME}/template/'
 
 # # Deploy Bigquery Statements
 # - name: 'gcr.io/cloud-builders/gcloud'
@@ -37,7 +37,7 @@ steps:
       pip install --upgrade pip
       pip install -r ${_FOLDER}/template/requirements.txt
       python -m apache_beam.runners.interactive.interactive_beam \
-        --requirements_file=${_FOLDER}/template/setup.pysetup.py \
+        --requirements_file=${_FOLDER}/template/setup.py \
         --runner DataflowRunner \
         --job_name 005__build_workflows \
         --template_location gs://${_BUCKET_NAME}/template/template_count.py
