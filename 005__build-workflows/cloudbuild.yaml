@@ -24,7 +24,7 @@ steps:
     - '-c'
     - |
       gcloud components install bq --quiet
-    - 'cat ${_FOLDER}/database/sp_1.sql | bq query --nouse_legacy_sql'
+      cat ${_FOLDER}/database/sp_1.sql | bq query --nouse_legacy_sql
 
 # - '--project=<ID_DEL_PROYECTO>'
 # - '--dataset=<NOMBRE_DEL_DATASET>'
