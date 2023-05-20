@@ -4,27 +4,27 @@ substitutions:
   _BUCKET_NAME: "005__build-workflows"
 
 steps:
-- name: 'gcr.io/cloud-builders/gcloud'
-  args:
-    - 'workflows'
-    - 'deploy'
-    - '${_WORKFLOW_NAME}'
-    - '--source'
-    - '${_FOLDER}/workflow.yaml'
+# - name: 'gcr.io/cloud-builders/gcloud'
+#   args:
+#     - 'workflows'
+#     - 'deploy'
+#     - '${_WORKFLOW_NAME}'
+#     - '--source'
+#     - '${_FOLDER}/workflow.yaml'
 
-- name: 'gcr.io/cloud-builders/gsutil'
-  args:
-    - 'cp'
-    - '${_FOLDER}/template/*'
-    - 'gs://${_BUCKET_NAME}/template/'
+# - name: 'gcr.io/cloud-builders/gsutil'
+#   args:
+#     - 'cp'
+#     - '${_FOLDER}/template/*'
+#     - 'gs://${_BUCKET_NAME}/template/'
 
-- name: 'gcr.io/cloud-builders/gcloud'
+- name: 'google/cloud-sdk'
+  entrypoint: 'bash'
   args:
-    - 'alpha'
-    - 'bigquery'
-    - 'queries'
-    - 'execute'
-    - '--file=${_FOLDER}/database/sp_1.sql'
+    - '-c'
+    - |
+      gcloud components install bq --quiet
+    - 'cat ${_FOLDER}/database/sp_1.sql | bq query --nouse_legacy_sql'
 
 # - '--project=<ID_DEL_PROYECTO>'
 # - '--dataset=<NOMBRE_DEL_DATASET>'
