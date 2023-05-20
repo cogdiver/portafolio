@@ -18,6 +18,13 @@ ACCOUNT=<ACCOUNT>
 PROJECT=<PROJECT_ID>
 ```
 
+Up project services
+```bash
+sh scripts/up_project.sh -c # To create necessary services
+sh scripts/up_project.sh -p # To set required permissions
+```
+
+
 ## Cloud Build
 Connecting a repository to Cloud Build in Google Cloud Platform involves the following steps:
 
