@@ -1,4 +1,4 @@
-CREATE OR REPLACE PROCEDURE `fine-sublime-315119.005_build_workflows.SP_2`() AS
+CREATE OR REPLACE PROCEDURE `fine-sublime-315119.005_build_workflows.SP_2`()
 BEGIN
 SELECT 2;
 END;
