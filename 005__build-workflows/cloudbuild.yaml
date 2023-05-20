@@ -1,27 +1,32 @@
-# options:
-#   # logging: cloud-logging-only
-#   logging: 'STACKDRIVER'
-#   # logsBucket: [NOMBRE_DE_TU_BUCKET]
-
 substitutions:
   _FOLDER: "005__build-workflows"
   _WORKFLOW_NAME: "workflow"
+  _BUCKET_NAME: "005__build-workflows"
 
 steps:
-# - name: 'ubuntu'
-#   args: ["ls", "${_FOLDER}"]
-
 - name: 'gcr.io/cloud-builders/gcloud'
   args:
-    # - 'beta'
     - 'workflows'
     - 'deploy'
     - '${_WORKFLOW_NAME}'
     - '--source'
     - '${_FOLDER}/workflow.yaml'
-    # - '--region'
-    # - 'us-central1'
-    # - '--replace'
+
+- name: 'gcr.io/cloud-builders/gcloud'
+  args:
+    - 'gsutil'
+    - 'ls'
+    - 'gs://${_BUCKET_NAME}'
+    # gs://${_BUCKET_NAME}/templates/wordcount-template
+
+# - name: 'gcr.io/cloud-builders/python'
+#   entrypoint: 'bash'
+#   args:
+#     - '-c'
+#     - |
+#       pip install --upgrade pip
+#       pip install -r setup.py
+#       python -m apache_beam.runners.interactive.interactive_beam --requirements_file=setup.py --runner DataflowRunner --job_name 005-build-workflow --template_location gs://${_BUCKET_NAME}/templates/wordcount-template
 
 
 # # create dataset
