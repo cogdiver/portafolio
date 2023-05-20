@@ -35,11 +35,11 @@ steps:
     - '-c'
     - |
       pip install --upgrade pip
-      pip install -r setup.py
+      pip install -r ${_FOLDER}/template/setup.py
       python -m apache_beam.runners.interactive.interactive_beam \
-        --requirements_file=setup.py \
+        --requirements_file=${_FOLDER}/template/setup.pysetup.py \
         --runner DataflowRunner \
         --job_name 005__build_workflows \
-        --template_location gs://${_BUCKET_NAME}/template/template_count
+        --template_location gs://${_BUCKET_NAME}/template/template_count.py
 
 # Deploy Cloud Run Service
