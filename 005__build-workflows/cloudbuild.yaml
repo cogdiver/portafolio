@@ -19,7 +19,7 @@ steps:
 #     - 'gs://${_BUCKET_NAME}/template/'
 
 # - name: 'google/cloud-sdk'
-- name: 'gcr.io/cloud-builders/gcloud'
+- name: 'gcr.io/cloud-builders/bq'
   entrypoint: 'bash'
   args:
     - '-c'
