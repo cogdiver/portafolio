@@ -17,7 +17,18 @@ steps:
     - 'cp'
     - '${_FOLDER}/template/*'
     - 'gs://${_BUCKET_NAME}/template/'
-    # gs://${_BUCKET_NAME}/templates/wordcount-template
+
+- name: 'gcr.io/cloud-builders/gcloud'
+  args:
+    - 'alpha'
+    - 'bigquery'
+    - 'queries'
+    - 'execute'
+    - '--file=${_FOLDER}/database/sp_1.sql'
+
+# - '--project=<ID_DEL_PROYECTO>'
+# - '--dataset=<NOMBRE_DEL_DATASET>'
+
 
 # - name: 'gcr.io/cloud-builders/python'
 #   entrypoint: 'bash'

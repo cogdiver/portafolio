@@ -1,0 +1,4 @@
+CREATE OR REPLACE PROCEDURE `fine-sublime-315119.005_build_workflows.SP_1`() AS
+BEGIN
+SELECT 1;
+END;
