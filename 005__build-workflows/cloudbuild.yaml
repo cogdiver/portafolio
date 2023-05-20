@@ -15,7 +15,7 @@ steps:
 - name: 'gcr.io/cloud-builders/gsutil'
   args:
     - 'cp'
-    - '${_FOLDER}//mnt/d/study/portafolio/005__build-workflows/template/*'
+    - '${_FOLDER}/template/*'
     - 'gs://${_BUCKET_NAME}/template/'
     # gs://${_BUCKET_NAME}/templates/wordcount-template
 
