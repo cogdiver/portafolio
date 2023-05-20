@@ -12,11 +12,11 @@ steps:
     - '--source'
     - '${_FOLDER}/workflow.yaml'
 
-- name: 'gcr.io/cloud-builders/gcloud'
+- name: 'gcr.io/cloud-builders/gsutil'
   args:
-    - 'gsutil'
-    - 'ls'
-    - 'gs://${_BUCKET_NAME}'
+    - 'cp'
+    - '${_FOLDER}//mnt/d/study/portafolio/005__build-workflows/template/*'
+    - 'gs://${_BUCKET_NAME}/template/'
     # gs://${_BUCKET_NAME}/templates/wordcount-template
 
 # - name: 'gcr.io/cloud-builders/python'
