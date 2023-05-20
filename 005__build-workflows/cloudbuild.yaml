@@ -4,6 +4,7 @@ substitutions:
   _BUCKET_NAME: "005__build-workflows"
 
 steps:
+# # Deploy workflow.yaml
 # - name: 'gcr.io/cloud-builders/gcloud'
 #   args:
 #     - 'workflows'
@@ -12,28 +13,22 @@ steps:
 #     - '--source'
 #     - '${_FOLDER}/workflow.yaml'
 
-# - name: 'gcr.io/cloud-builders/gsutil'
-#   args:
-#     - 'cp'
-#     - '${_FOLDER}/template/*'
-#     - 'gs://${_BUCKET_NAME}/template/'
-
-# - name: 'google/cloud-sdk'
-# - name: 'gcr.io/cloud-builders/bq'
-- name: 'gcr.io/cloud-builders/gcloud'
-  entrypoint: 'bash'
+# Copy required file to Cloud Storage
+- name: 'gcr.io/cloud-builders/gsutil'
   args:
-    - '-c'
-    - |
-      cat ${_FOLDER}/database/*.sql | bq query --nouse_legacy_sql
+    - 'cp'
+    - '${_FOLDER}/template/*'
+    - 'gs://${_BUCKET_NAME}/template/'
 
-# gcloud auth activate-service-account --key-file=<ruta_del_archivo_clave>
-# bq query --use_legacy_sql=false --project_id=<tu_id_de_proyecto> --nouse_cache --replace --destination_table=<tabla_de_destino> 'SELECT * FROM `dataset.tabla` LIMIT 10'
+# # Deploy Bigquery Statements
+# - name: 'gcr.io/cloud-builders/gcloud'
+#   entrypoint: 'bash'
+#   args:
+#     - '-c'
+#     - |
+#       cat ${_FOLDER}/database/*.sql | bq query --nouse_legacy_sql
 
-# - '--project=<ID_DEL_PROYECTO>'
-# - '--dataset=<NOMBRE_DEL_DATASET>'
-
-
+# # Build Dataflow template
 # - name: 'gcr.io/cloud-builders/python'
 #   entrypoint: 'bash'
 #   args:
@@ -43,12 +38,4 @@ steps:
 #       pip install -r setup.py
 #       python -m apache_beam.runners.interactive.interactive_beam --requirements_file=setup.py --runner DataflowRunner --job_name 005-build-workflow --template_location gs://${_BUCKET_NAME}/templates/wordcount-template
 
-
-# # create dataset
-# - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-#   entrypoint: 'bq'
-#   timeout: 240s
-#   args: ['mk', '${PROJECT_ID}:test_build']
-  # env:
-  # - 'CLOUDSDK_COMPUTE_REGION=us-central1'
-  # - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
+# Deploy Cloud Run Service
