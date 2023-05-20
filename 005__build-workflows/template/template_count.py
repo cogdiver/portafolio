@@ -1,3 +1,4 @@
+import sys
 import apache_beam as beam
 
 def count_words(data):
@@ -8,10 +9,12 @@ def count_words(data):
             | beam.Map(print)
             )
 
-def run_pipeline():
+def run_pipeline(input_file):
     with beam.Pipeline() as pipeline:
-        lines = pipeline | "ReadInputData" >> beam.io.ReadFromText('gs://<bucket>/input.txt')
-        count_words(lines)
+        lines = pipeline | "ReadInputData" >> beam.io.ReadFromText(input_file)
+        counts = count_words(lines)
+        print(counts)
 
 if __name__ == '__main__':
-    run_pipeline()
+    print(sys.argv)
+    run_pipeline('gs://005__build-workflows/template/input.txt')
