@@ -32,23 +32,23 @@ steps:
 #       cat ${_FOLDER}/database/*.sql | bq query --nouse_legacy_sql
 
 # Deploy Cloud Run Service
-- name: 'gcr.io/cloud-builders/docker'
-  args:
-    - 'build'
-    - '-t'
-    - '${_REGION}-docker.pkg.dev/${_PROJECT_ID}/${_API_NAME}/api'
-    - '${_FOLDER}/api/.'
+# - name: 'gcr.io/cloud-builders/docker'
+#   args:
+#     - 'build'
+#     - '-t'
+#     - '${_REGION}-docker.pkg.dev/${_PROJECT_ID}/${_API_NAME}/api'
+#     - '${_FOLDER}/api/.'
 
-- name: 'gcr.io/cloud-builders/gcloud'
-  args:
-    - 'auth'
-    - 'configure-docker'
-    - '${_REGION}-docker.pkg.dev'
+# - name: 'gcr.io/cloud-builders/gcloud'
+#   args:
+#     - 'auth'
+#     - 'configure-docker'
+#     - '${_REGION}-docker.pkg.dev'
 
-- name: 'gcr.io/cloud-builders/docker'
-  args:
-    - 'push'
-    - '${_REGION}-docker.pkg.dev/${_PROJECT_ID}/${_API_NAME}/api'
+# - name: 'gcr.io/cloud-builders/docker'
+#   args:
+#     - 'push'
+#     - '${_REGION}-docker.pkg.dev/${_PROJECT_ID}/${_API_NAME}/api'
 
 - name: 'gcr.io/cloud-builders/gcloud'
   args:
