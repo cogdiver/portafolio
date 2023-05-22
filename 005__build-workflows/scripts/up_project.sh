@@ -58,9 +58,8 @@ SetPermissions() {
         --role=roles/run.admin
     gcloud projects add-iam-policy-binding $PROJECT \
         --member=serviceAccount:$PROJECT_NUMBER@cloudbuild.gserviceaccount.com \
-        --role=roles/iam.serviceAccountAdmin
+        --role=roles/run.serviceAgent
 }
-
 
 # 
 if [[ $# == 0 ]]; then
