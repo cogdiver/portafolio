@@ -39,11 +39,11 @@ steps:
 #     - '${_REGION}-docker.pkg.dev/${_PROJECT_ID}/${_API_NAME}/api'
 #     - '${_FOLDER}/api/.'
 
-# - name: 'gcr.io/cloud-builders/gcloud'
-#   args:
-#     - 'auth'
-#     - 'configure-docker'
-#     - '${_REGION}-docker.pkg.dev'
+- name: 'gcr.io/cloud-builders/gcloud'
+  args:
+    - 'auth'
+    - 'configure-docker'
+    - '${_REGION}-docker.pkg.dev'
 
 # - name: 'gcr.io/cloud-builders/docker'
 #   args:
