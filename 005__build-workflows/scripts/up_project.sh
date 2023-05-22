@@ -51,6 +51,11 @@ SetPermissions() {
     gcloud projects add-iam-policy-binding $PROJECT \
         --member=serviceAccount:$PROJECT_NUMBER@cloudbuild.gserviceaccount.com \
         --role=roles/bigquery.admin
+
+    # To deploy Cloud Run services from cloudbuild
+    gcloud projects add-iam-policy-binding $PROJECT \
+        --member=serviceAccount:$PROJECT_NUMBER@cloudbuild.gserviceaccount.com \
+        --role=roles/run.admin
 }
 
 
