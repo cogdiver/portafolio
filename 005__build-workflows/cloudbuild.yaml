@@ -44,7 +44,6 @@ steps:
     - 'auth'
     - 'configure-docker'
     - '${_REGION}-docker.pkg.dev'
-  # - '--quiet'
 
 - name: 'gcr.io/cloud-builders/docker'
   args:
@@ -62,4 +61,4 @@ steps:
     - 'managed'
     - '--region'
     - '${_REGION}'
-  # - '--quiet'
+    - '--allow-unauthenticated'
