@@ -2,6 +2,8 @@ substitutions:
   _FOLDER: "005__build-workflows"
   _WORKFLOW_NAME: "workflow"
   _BUCKET_NAME: "005__build-workflows"
+  _PROJECT_ID: "fine-sublime-315119"
+  _API_NAME: "build-workflow"
 
 steps:
 # # Deploy workflow.yaml
@@ -28,18 +30,27 @@ steps:
 #     - |
 #       cat ${_FOLDER}/database/*.sql | bq query --nouse_legacy_sql
 
-# Build Dataflow template
-- name: python
-  entrypoint: 'bash'
-  args:
-    - '-c'
-    - |
-      pip install --upgrade pip
-      pip install -r ${_FOLDER}/template/requirements.txt
-      python -m apache_beam.runners.interactive.interactive_beam \
-        --runner DataflowRunner \
-        --job_name 005__build_workflows \
-        --template_location gs://${_BUCKET_NAME}/template/template_count.py
-
-# --requirements_file=${_FOLDER}/template/requirements.txt \
 # Deploy Cloud Run Service
+- name: 'gcr.io/cloud-builders/docker'
+  args:
+    - 'build'
+    - '-t'
+    - 'gcr.io/${_PROJECT_ID}/${_API_NAME}'
+    - '${_FOLDER}/api/.'
+
+- name: 'gcr.io/cloud-builders/docker'
+  args:
+    - 'push'
+    - 'gcr.io/${_PROJECT_ID}/${_API_NAME}'
+
+- name: 'gcr.io/cloud-builders/gcloud'
+  args:
+    - 'run'
+    - 'deploy'
+    - '${_API_NAME}'
+    - '--image'
+    - 'gcr.io/${_PROJECT_ID}/${_API_NAME}'
+    - '--platform'
+    - 'managed'
+    - '--region'
+    - 'us-central1'
