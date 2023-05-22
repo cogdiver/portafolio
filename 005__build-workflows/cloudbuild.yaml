@@ -71,7 +71,7 @@ steps:
     - '-c'
     - |
       gcloud run services describe ${_IMAGE_NAME} --region ${_REGION} --format="value(status.url)"
-      cat temp
+      # cat temp
       # echo $API_URL
 
 # - name: ubuntu
