@@ -24,12 +24,18 @@ CreateServices() {
 
     # Bigquery (Dataset)
     bq mk $DATASET
+
+    # Artifact Registry (Repository)
+    gcloud artifacts repositories create $IMAGE_NAME \
+        --repository-format=docker \
+        --location=$REGION
 }
 
 EnableAPIs() {
     gcloud services enable dataflow.googleapis.com
     gcloud services enable datapipelines.googleapis.com
     gcloud services enable cloudscheduler.googleapis.com
+    gcloud services enable run.googleapis.com
 }
 
 SetPermissions() {
