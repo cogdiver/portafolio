@@ -70,7 +70,8 @@ steps:
   args:
     - '-c'
     - |
-      gcloud run services describe ${_IMAGE_NAME} --region ${_REGION} --format="value(status.url)"
+      API_URL=`gcloud run services describe ${_IMAGE_NAME} --region ${_REGION} --format="value(status.url)"`
+      echo $API_URL
 
 # cat temp
 # echo $API_URL
