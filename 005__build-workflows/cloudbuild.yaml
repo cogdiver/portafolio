@@ -73,8 +73,8 @@ steps:
       API_URL=`gcloud run services describe ${_IMAGE_NAME} --region ${_REGION} --format="value(status.url)"`
       echo $API_URL
 
-- name: ubuntu
-  args:
-    - '-c'
-    - |
-      echo $API_URL
+# - name: ubuntu
+#   args:
+#     - '-c'
+#     - |
+#       echo $API_URL
