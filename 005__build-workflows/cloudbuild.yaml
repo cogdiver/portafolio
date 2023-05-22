@@ -4,6 +4,7 @@ substitutions:
   _BUCKET_NAME: "005__build-workflows"
   _PROJECT_ID: "fine-sublime-315119"
   _API_NAME: "build-workflow"
+  _REGION: "us-central1"
 
 steps:
 # # Deploy workflow.yaml
@@ -35,22 +36,30 @@ steps:
   args:
     - 'build'
     - '-t'
-    - 'gcr.io/${_PROJECT_ID}/${_API_NAME}'
+    - '${_REGION}-docker.pkg.dev/${_PROJECT_ID}/${_API_NAME}/api'
     - '${_FOLDER}/api/.'
+
+- name: 'gcr.io/cloud-builders/gcloud'
+  args:
+    - 'auth'
+    - 'configure-docker'
+    - '${_REGION}-docker.pkg.dev'
+  # - '--quiet'
 
 - name: 'gcr.io/cloud-builders/docker'
   args:
     - 'push'
-    - 'gcr.io/${_PROJECT_ID}/${_API_NAME}'
+    - '${_REGION}-docker.pkg.dev/${_PROJECT_ID}/${_API_NAME}/api'
 
-- name: 'gcr.io/cloud-builders/docker'
+- name: 'gcr.io/cloud-builders/gcloud'
   args:
     - 'run'
     - 'deploy'
     - '${_API_NAME}'
     - '--image'
-    - 'gcr.io/${_PROJECT_ID}/${_API_NAME}'
+    - '${_REGION}-docker.pkg.dev/${_PROJECT_ID}/${_API_NAME}/api'
     - '--platform'
     - 'managed'
     - '--region'
-    - 'us-central1'
+    - '${_REGION}'
+  # - '--quiet'
