@@ -43,7 +43,7 @@ steps:
     - 'push'
     - 'gcr.io/${_PROJECT_ID}/${_API_NAME}'
 
-- name: 'gcr.io/cloud-builders/gcloud'
+- name: 'gcr.io/cloud-builders/docker'
   args:
     - 'run'
     - 'deploy'
