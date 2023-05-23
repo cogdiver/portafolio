@@ -6,10 +6,10 @@ def function_name(request):
 
     # Realiza la petición a Cloud Run
     response = requests.get(url)
+    print(response)
 
     # Verifica el código de estado de la respuesta
     if response.status_code == 200:
-        print(response)
         return 'Petición exitosa'
     else:
         return 'Error en la petición'
