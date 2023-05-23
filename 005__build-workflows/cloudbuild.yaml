@@ -66,17 +66,16 @@ steps:
 
 # Deploy Cloud Function
 - name: 'gcr.io/cloud-builders/gcloud'
-  entrypoint: 'bash'
   args:
-    - '-c'
-    - |
-      gcloud run services describe ${_IMAGE_NAME} --region ${_REGION} --format="value(status.url)" > temp
-      API_URL=`cat temp`
-      echo $API_URL
-
-# cat temp
-# - name: ubuntu
-#   args:
-#     - '-c'
-#     - |
-#       echo $API_URL
+    - 'functions'
+    - 'deploy'
+    - '${_FUNCTION_NAME}'
+    - '--runtime'
+    - 'python310'
+    - '--entry-point'
+    - 'function_name'
+    - '--region'
+    - '${_REGION}'
+    - '--trigger-http'
+    - '--gen2'
+# - '--service-account sa-function-qa@co-ugpp-datalake-qa.iam.gserviceaccount.com'
