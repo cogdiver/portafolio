@@ -43,23 +43,28 @@ SetPermissions() {
     # Set permissions
     PROJECT_NUMBER=`gcloud projects describe $PROJECT --format='value(projectNumber)'`
 
-    # To execute workflow from cloudbuild
+    # To execute workflow from Cloud Build
     gcloud projects add-iam-policy-binding $PROJECT \
         --member=serviceAccount:$PROJECT_NUMBER@cloudbuild.gserviceaccount.com \
         --role=roles/workflows.admin
 
-    # To execute bigquery queries from cloudbuild
+    # To execute bigquery queries from Cloud Build
     gcloud projects add-iam-policy-binding $PROJECT \
         --member=serviceAccount:$PROJECT_NUMBER@cloudbuild.gserviceaccount.com \
         --role=roles/bigquery.admin
 
-    # To deploy Cloud Run services from cloudbuild
+    # To deploy Cloud Run services from Cloud Build
     gcloud projects add-iam-policy-binding $PROJECT \
         --member=serviceAccount:$PROJECT_NUMBER@cloudbuild.gserviceaccount.com \
         --role=roles/run.admin
     gcloud projects add-iam-policy-binding $PROJECT \
         --member=serviceAccount:$PROJECT_NUMBER@cloudbuild.gserviceaccount.com \
         --role=roles/run.serviceAgent
+
+    # To deploy Cloud Function from Cloud Build
+    gcloud projects add-iam-policy-binding $PROJECT \
+        --member=serviceAccount:$PROJECT_NUMBER@cloudbuild.gserviceaccount.com \
+        --role=roles/cloudfunctions.admin
 }
 
 # Options
