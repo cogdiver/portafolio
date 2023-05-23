@@ -36,6 +36,7 @@ EnableAPIs() {
     gcloud services enable datapipelines.googleapis.com
     gcloud services enable cloudscheduler.googleapis.com
     gcloud services enable run.googleapis.com
+    gcloud services enable cloudfunctions.googleapis.com
 }
 
 SetPermissions() {
@@ -61,7 +62,7 @@ SetPermissions() {
         --role=roles/run.serviceAgent
 }
 
-# 
+# Options
 if [[ $# == 0 ]]; then
     Help
 elif [[ $# == 1 ]]; then
@@ -76,5 +77,3 @@ elif [[ $# == 1 ]]; then
 else
     echo "Only one option is allowed. See ./up_project.sh --help"
 fi
-
-
