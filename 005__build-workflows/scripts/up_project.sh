@@ -19,6 +19,14 @@ Help() {
 }
 
 CreateServices() {
+    # Cloud Buil (Trigger)
+    gcloud builds triggers create github \
+        --name=$TRIGGER_NAME \
+        --repo-name=$GITHUB_REPO_NAME \
+        --repo-owner=$GITHUB_REPO_OWNER \
+        --branch-pattern=$BRANCH_PATTERN \
+        --build-config=$BUILD_CONFIG_FILE
+
     # Storage (Bucket)
     gsutil mb gs://$BUCKET_NAME
 
