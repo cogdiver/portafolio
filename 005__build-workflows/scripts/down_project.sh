@@ -24,8 +24,10 @@ DeleteServices() {
   gcloud workflows delete $WORKFLOW_NAME --quiet
 
   # Cloud Buil Trigger
-  gcloud builds triggers create github $TRIGGER_NAME
+  gcloud builds triggers delete github $TRIGGER_NAME
 
   # Delete All Bucket
   gsutil rm -r -f $(gsutil ls)
 }
+
+DeleteServices
