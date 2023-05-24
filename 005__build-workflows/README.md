@@ -12,20 +12,11 @@ Create .env file
 cp .env.sample .env
 ```
 
-Replace values for GCP information
-```
-ACCOUNT=<ACCOUNT>
-PROJECT=<PROJECT_ID>
-```
-
-Up project services
-```bash
-sh scripts/up_project.sh -c # To create necessary services
-sh scripts/up_project.sh -p # To set required permissions
-```
+>***Note:*** Open .env file and replace values for GCP information
 
 
-## Cloud Build
+
+## Connect Repository
 Connecting a repository to Cloud Build in Google Cloud Platform involves the following steps:
 
 1. Open the Cloud Build console in the Google Cloud Platform console.
@@ -36,19 +27,10 @@ Connecting a repository to Cloud Build in Google Cloud Platform involves the fol
 6. Once you have connected your repository, you can create a new Cloud Build trigger that is connected to that repository.
 
 
-To create a trigger, you can follow these steps:
-
-1. Check that you have the necessary variables in `.env` file.
+## Configure Services
+Execute the following commands to configure project services
 ```bash
-# Cloud Build
-TRIGGER_NAME=<TRIGGER_NAME>
-GITHUB_REPO_NAME=<GITHUB_REPO_NAME>
-GITHUB_REPO_OWNER=<GITHUB_REPO_OWNER>
-BRANCH_PATTERN=<BRANCH_PATTERN>
-BUILD_CONFIG_FILE=<BUILD_CONFIG_FILE>
-```
-
-2. Execute the script.
-```bash
-sh scripts/create_trigger.sh
+sh scripts/up_project.sh -c # To create necessary services
+sh scripts/up_project.sh -a # To enable required APIs
+sh scripts/up_project.sh -p # To set required permissions
 ```
