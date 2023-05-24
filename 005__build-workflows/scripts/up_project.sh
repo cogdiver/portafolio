@@ -14,8 +14,8 @@ Help() {
     echo
     echo "-h | --help          Print this message"
     echo "-c | --create        Create Project services"
-    echo "-p | --permissions   Set Project Permissions"
     echo "-a | --apis          Enable Required APIs"
+    echo "-p | --permissions   Set Project Permissions"
 }
 
 CreateServices() {
@@ -82,8 +82,8 @@ elif [[ $# == 1 ]]; then
     case "$1" in
         -h | --help) Help;;
         -c | --create) CreateServices;;
-        -p | --permissions) SetPermissions;;
         -a | --apis) EnableAPIs;;
+        -p | --permissions) SetPermissions;;
         *) echo "'$1' is not a valid option. See ./up_project.sh --help"
         Help;;
     esac
