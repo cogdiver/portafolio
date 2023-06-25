@@ -17,12 +17,19 @@ steps:
       - '--source'
       - '${_FOLDER}/workflow.yaml'
 
-  # Copy required file to Cloud Storage
+  # Copy template files to Cloud Storage
   - name: 'gcr.io/cloud-builders/gsutil'
     args:
       - 'cp'
       - '${_FOLDER}/template/*'
       - 'gs://${_BUCKET_NAME}/template/'
+
+  # Copy transforms files to Cloud Storage
+  - name: 'gcr.io/cloud-builders/gsutil'
+    args:
+      - 'cp'
+      - '${_FOLDER}/transforms/*'
+      - 'gs://${_BUCKET_NAME}/transforms/'
 
   # Deploy Bigquery Statements
   - name: 'gcr.io/cloud-builders/gcloud'
