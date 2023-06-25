@@ -7,15 +7,24 @@
 env_file=".env"
 source $env_file
 
+
 # Functions
 Help() {
     # Display options menu
     echo "usage: ./up_project.sh [options]"
     echo
     echo "-h | --help          Print this message"
-    echo "-c | --create        Create Project services"
     echo "-a | --apis          Enable Required APIs"
-    echo "-p | --permissions   Set Project Permissions"
+    echo "-c | --create        Create Project services"
+    echo "-p | --permissions   Add Project Permissions"
+}
+
+EnableAPIs() {
+    gcloud services enable dataflow.googleapis.com
+    gcloud services enable datapipelines.googleapis.com
+    gcloud services enable cloudscheduler.googleapis.com
+    gcloud services enable run.googleapis.com
+    gcloud services enable cloudfunctions.googleapis.com
 }
 
 CreateServices() {
@@ -39,15 +48,7 @@ CreateServices() {
         --location=$REGION
 }
 
-EnableAPIs() {
-    gcloud services enable dataflow.googleapis.com
-    gcloud services enable datapipelines.googleapis.com
-    gcloud services enable cloudscheduler.googleapis.com
-    gcloud services enable run.googleapis.com
-    gcloud services enable cloudfunctions.googleapis.com
-}
-
-SetPermissions() {
+AddtPermissions() {
     # Set permissions
     PROJECT_NUMBER=`gcloud projects describe $PROJECT --format='value(projectNumber)'`
 
@@ -81,9 +82,9 @@ if [[ $# == 0 ]]; then
 elif [[ $# == 1 ]]; then
     case "$1" in
         -h | --help) Help;;
-        -c | --create) CreateServices;;
         -a | --apis) EnableAPIs;;
-        -p | --permissions) SetPermissions;;
+        -c | --create) CreateServices;;
+        -p | --permissions) AddtPermissions;;
         *) echo "'$1' is not a valid option. See ./up_project.sh --help"
         Help;;
     esac

@@ -7,27 +7,90 @@
 env_file=".env"
 source $env_file
 
-DeleteServices() {
-  # Dataset
-  bq rm -r -f $DATASET
 
-  # Cloud Function
-  gcloud functions delete $FUNCTION_NAME --quiet
-
-  # Cloud Run
-  gcloud run services delete $IMAGE_NAME --region $REGION --quiet
-
-  # Artifact Registry
-  gcloud artifacts repositories delete $IMAGE_NAME --location $REGION --quiet
-
-  # Workflows
-  gcloud workflows delete $WORKFLOW_NAME --quiet
-
-  # Cloud Buil Trigger
-  gcloud builds triggers delete github $TRIGGER_NAME
-
-  # Delete All Bucket
-  gsutil rm -r -f $(gsutil ls)
+# Functions
+Help() {
+    # Display options menu
+    echo "usage: ./up_project.sh [options]"
+    echo
+    echo "-h | --help          Print this message"
+    echo "-p | --permissions   Remove Project Permissions"
+    echo "-d | --delete        Delete Project services"
+    echo "-a | --apis          Disable APIs"
 }
 
-DeleteServices
+RemovePermissions() {
+    # Set permissions
+    PROJECT_NUMBER=`gcloud projects describe $PROJECT --format='value(projectNumber)'`
+
+    # To execute workflow from Cloud Build
+    gcloud projects remove-iam-policy-binding $PROJECT \
+        --member=serviceAccount:$PROJECT_NUMBER@cloudbuild.gserviceaccount.com \
+        --role=roles/workflows.admin
+
+    # To execute bigquery queries from Cloud Build
+    gcloud projects remove-iam-policy-binding $PROJECT \
+        --member=serviceAccount:$PROJECT_NUMBER@cloudbuild.gserviceaccount.com \
+        --role=roles/bigquery.admin
+
+    # To deploy Cloud Run services from Cloud Build
+    gcloud projects remove-iam-policy-binding $PROJECT \
+        --member=serviceAccount:$PROJECT_NUMBER@cloudbuild.gserviceaccount.com \
+        --role=roles/run.admin
+    gcloud projects remove-iam-policy-binding $PROJECT \
+        --member=serviceAccount:$PROJECT_NUMBER@cloudbuild.gserviceaccount.com \
+        --role=roles/run.serviceAgent
+
+    # To deploy Cloud Function from Cloud Build
+    gcloud projects remove-iam-policy-binding $PROJECT \
+        --member=serviceAccount:$PROJECT_NUMBER@cloudbuild.gserviceaccount.com \
+        --role=roles/cloudfunctions.admin
+}
+
+DeleteServices() {
+    # Bigquery (Dataset)
+    bq rm -r -f $DATASET
+
+    # Cloud Function
+    gcloud functions delete $FUNCTION_NAME --quiet
+
+    # Cloud Run
+    gcloud run services delete $IMAGE_NAME --region $REGION --quiet
+
+    # Artifact Registry (Repository)
+    gcloud artifacts repositories delete $IMAGE_NAME --location $REGION --quiet
+
+    # Workflows
+    gcloud workflows delete $WORKFLOW_NAME --quiet
+
+    # Cloud Build (Trigger)
+    gcloud builds triggers delete github $TRIGGER_NAME
+
+    # Storage (All Buckets)
+    gsutil rm -r -f $(gsutil ls)
+}
+
+DisableAPIs() {
+    gcloud services disable dataflow.googleapis.com
+    gcloud services disable datapipelines.googleapis.com
+    gcloud services disable cloudscheduler.googleapis.com
+    gcloud services disable run.googleapis.com
+    gcloud services disable cloudfunctions.googleapis.com
+}
+
+
+# Options
+if [[ $# == 0 ]]; then
+    Help
+elif [[ $# == 1 ]]; then
+    case "$1" in
+        -h | --help) Help;;
+        -p | --permissions) RemovePermissions;;
+        -d | --delete) DeleteServices;;
+        -a | --apis) DisableAPIs;;
+        *) echo "'$1' is not a valid option. See ./up_project.sh --help"
+        Help;;
+    esac
+else
+    echo "Only one option is allowed. See ./up_project.sh --help"
+fi
