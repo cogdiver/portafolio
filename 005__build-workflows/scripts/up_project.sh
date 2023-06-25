@@ -46,6 +46,19 @@ CreateServices() {
     gcloud artifacts repositories create $IMAGE_NAME \
         --repository-format=docker \
         --location=$REGION
+
+    # Pub/Sub (Topic, Subscription)
+    gcloud pubsub topics create $TOPIC_NAME
+    gcloud pubsub subscriptions create $SUBSCRIPTION_NAME --topic $TOPIC_NAME
+    gcloud pubsub subscriptions create $SUBSCRIPTION_NAME-test --topic $TOPIC_NAME
+
+    # Dataflow (Template)
+    gcloud dataflow jobs run $JOB_NAME \
+        --gcs-location gs://dataflow-templates-$REGION/latest/PubSub_Subscription_to_BigQuery \
+        --region $REGION \
+        --staging-location gs://$BUCKET_NAME/temp \
+        --parameters inputSubscription=projects/$PROJECT/subscriptions/$SUBSCRIPTION_NAME,outputTableSpec=$PROJECT:$DATASET.$OUTPUT_TABLE
+
 }
 
 AddtPermissions() {
@@ -74,6 +87,12 @@ AddtPermissions() {
     gcloud projects add-iam-policy-binding $PROJECT \
         --member=serviceAccount:$PROJECT_NUMBER@cloudbuild.gserviceaccount.com \
         --role=roles/cloudfunctions.admin
+
+    # To write pub/sub message on bigquery
+    gcloud projects add-iam-policy-binding $PROJECT \
+        --member=serviceAccount:service-$PROJECT_NUMBER@gcp-sa-pubsub.iam.gserviceaccount.com \
+        --role=roles/bigquery.admin \
+        --condition=None
 }
 
 # Options

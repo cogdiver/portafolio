@@ -26,25 +26,30 @@ RemovePermissions() {
     # To execute workflow from Cloud Build
     gcloud projects remove-iam-policy-binding $PROJECT \
         --member=serviceAccount:$PROJECT_NUMBER@cloudbuild.gserviceaccount.com \
-        --role=roles/workflows.admin
+        --role=roles/workflows.admin \
+        --condition=None
 
     # To execute bigquery queries from Cloud Build
     gcloud projects remove-iam-policy-binding $PROJECT \
         --member=serviceAccount:$PROJECT_NUMBER@cloudbuild.gserviceaccount.com \
-        --role=roles/bigquery.admin
+        --role=roles/bigquery.admin \
+        --condition=None
 
     # To deploy Cloud Run services from Cloud Build
     gcloud projects remove-iam-policy-binding $PROJECT \
         --member=serviceAccount:$PROJECT_NUMBER@cloudbuild.gserviceaccount.com \
-        --role=roles/run.admin
+        --role=roles/run.admin \
+        --condition=None
     gcloud projects remove-iam-policy-binding $PROJECT \
         --member=serviceAccount:$PROJECT_NUMBER@cloudbuild.gserviceaccount.com \
-        --role=roles/run.serviceAgent
+        --role=roles/run.serviceAgent \
+        --condition=None
 
     # To deploy Cloud Function from Cloud Build
     gcloud projects remove-iam-policy-binding $PROJECT \
         --member=serviceAccount:$PROJECT_NUMBER@cloudbuild.gserviceaccount.com \
-        --role=roles/cloudfunctions.admin
+        --role=roles/cloudfunctions.admin \
+        --condition=None
 }
 
 DeleteServices() {
@@ -64,10 +69,15 @@ DeleteServices() {
     gcloud workflows delete $WORKFLOW_NAME --quiet
 
     # Cloud Build (Trigger)
-    gcloud builds triggers delete github $TRIGGER_NAME
+    gcloud builds triggers delete $TRIGGER_NAME
 
     # Storage (All Buckets)
     gsutil rm -r -f $(gsutil ls)
+
+    # Pub/Sub (Topic, Subscription)
+    gcloud pubsub topics delete $TOPIC_NAME
+    gcloud pubsub subscriptions delete $SUBSCRIPTION_NAME
+    gcloud pubsub subscriptions delete $SUBSCRIPTION_NAME-test
 }
 
 DisableAPIs() {
