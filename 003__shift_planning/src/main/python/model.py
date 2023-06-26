@@ -125,7 +125,7 @@ def selection(
 
     return [population[i] for i in index], min(fitness), max(fitness)
 
-
+# TODO: Intercambiar Workspace
 def crossover(parents: List[Department], probability: float):
     offspring = []
 
@@ -142,7 +142,7 @@ def crossover(parents: List[Department], probability: float):
 
     return parents + offspring
 
-
+# TODO: Cambiar turno
 def mutation(
     parents: List[Department],
     probability: float,
