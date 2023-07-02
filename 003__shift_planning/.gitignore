@@ -1,0 +1,8 @@
+.metals
+.mypy_cache
+.vscode
+__pycache__
+target
+*.png
+*.xlsx
+temp
