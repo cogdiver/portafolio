@@ -1,4 +1,4 @@
-from src.main.python.bases import Date, Workday, Turns
+from src.main.python.utils_schemas import Date, Workday, Turns
 
 from matplotlib.offsetbox import AnchoredText
 from datetime import datetime, timedelta
@@ -82,80 +82,111 @@ def getDates(dates_interval: str):
 
 
 def crossoverDepartments(department_1, department_2, probability: float):
+    """
+    Performs crossover between two departments by swapping employee turns with a certain probability.
+
+    Args:
+        department_1 (Department): The first department.
+        department_2 (Department): The second department.
+        probability (float): The probability of swapping employee turns.
+
+    Returns:
+        Department: The resulting department after crossover.
+    """
     department_a = department_1.copy()
     department_b = department_2.copy()
 
-    for i in range(len(department_a.employees)):
+    for employee_name in department_a.employees:
+        # Check if the crossover should occur based on the probability
         if random.random() <= probability:
-            dates = department_a.planning_days
-            date = random.choice(dates)
+            # Randomly select a date from the planning days
+            date = random.choice(department_a.planning_days)
 
-            empoyee_a = department_a.employees[i]
-            empoyee_b = department_b.employees[i]
+            # Get the corresponding employees in both departments
+            employee_a = department_a.employees[employee_name]
+            employee_b = department_b.employees[employee_name]
 
-            workplan_a = empoyee_a.workplan[date].copy()
-            workplan_b = empoyee_b.workplan[date].copy()
+            # Get the workplans of the employees for the selected date
+            workplan_a = employee_a.workplan.copy().plan[date]
+            workplan_b = employee_b.workplan.copy().plan[date]
 
-            workplace_name_a = workplan_a['workplace'].name
-            workplace_name_b = workplan_b['workplace'].name
+            # Get the names of the workplaces for the workplans
+            workplace_name_a = workplan_a['workplace']
+            workplace_name_b = workplan_b['workplace']
 
-            workplace_a = [
-                w for w in department_a.work_places
-                if w.name.name == workplace_name_a
-            ][0]
-            workplace_b = [
-                w for w in department_a.work_places
-                if w.name.name == workplace_name_b
-            ][0]
-
-            # print(date)
-            # print(workplace_name_a, workplace_name_b)
-            # print(empoyee_a, empoyee_b)
-            # print(workplace_a.assignments[date], workplace_b.assignments[date])
-
-            empoyee_a.workplan[date] = workplan_b
-            workplace_a.removeAssignment(
-                date = Date(date),
-                employee = empoyee_a
-            )
-            workplace_b.assign(
-                employee = empoyee_a,
-                workday = Workday(
-                    turn = workplan_b['turn'],
-                    date = Date(date)
-                )
-            )
+            # Swap the turns between the employees in the workplans
+            department_a.changeTurn(Date(date), employee_a, workplace_name_b, workplan_b['turn'])
+            department_b.changeTurn(Date(date), employee_b, workplace_name_a, workplan_a['turn'])
 
     return department_a
 
 
 def mutateDepartment(department, probability: float):
+    """
+    Performs mutation on a given department by applying random changes to employees' work schedules.
+
+    Args:
+        department (Department): The department to mutate.
+        probability (float): The mutation probability for each employee on each date.
+
+    Returns:
+        Department: The mutated department.
+    """
+    # Make a copy of the original department
     department_ = department.copy()
 
+    # Iterate over each date in the department's planning days
     for date in department_.planning_days:
+        # Check if the mutation probability is satisfied for the current date
         if random.random() <= probability:
-            employee_a = random.choice(department_.employees)
-            name_a = employee_a.name
-            workplan_a = employee_a.workplan[date].copy()
-            workplace_name_a = workplan_a['workplace'].name
-            workplace_a = [w for w in department_.work_places if w.name.name == workplace_name_a][0]
+            # Select two random employees from the department
+            employee_a, employee_b = random.sample(list(department_.employees.values()), k=2)
 
-            employee_b = random.choice(department_.employees)
-            name_b = employee_b.name
-            workplan_b = employee_b.workplan[date].copy()
-            workplace_name_b = workplan_b['workplace'].name
-            workplace_b = [w for w in department_.work_places if w.name.name == workplace_name_b][0]
+            # Swap the work schedules of the employees for the current date
+            department_.swapWorkSchedule(Date(date), employee_a, employee_b)
 
-            employee_a.workplan[date] = workplan_b
-            employee_b.workplan[date] = workplan_a
+    return department_
 
-            workplace_a.changeAssignment(Date(date), employee_a, employee_b)
-            workplace_b.changeAssignment(Date(date), employee_b, employee_a)
+
+def mutateEmployees(department, probability: float):
+    """
+    Mutates the employees of a department by changing their work schedules based on a given probability.
+
+    Args:
+        department (Department): The department object containing employees and their work schedules.
+        probability (float): The probability of mutation for each employee.
+
+    Returns:
+        Department: The mutated department object.
+    """
+    # Make a copy of the original department
+    department_ = department.copy()
+
+    for k, employee in department_.employees.items():
+        # Iterate over each date in the department's planning days
+        for date in department_.planning_days:
+            # Check if the crossover should occur based on the probability
+            if random.random() <= probability:
+                workplace = employee.workplan.plan[date]
+                current_turn = workplace['turn']
+
+                # Select two random Turns
+                turns = random.sample([t for t in Turns], k=2)
+                new_turn = turns[0] if turns[0] != current_turn else turns[1]
+
+                # Change turn for the employee in date
+                department_.changeTurn(Date(date), employee, workplace['workplace'], new_turn)
 
     return department_
 
 
 def plot_evolucion(log):
+    """
+    Plots the evolution of fitness values over generations based on the provided log.
+
+    Args:
+        log (dict): The log containing the generation, minimum fitness values, and maximum fitness values.
+    """
 
     index = str(time())[:10]
     gen = log["gen"]
