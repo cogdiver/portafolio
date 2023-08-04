@@ -4,7 +4,7 @@ This project is a shift planning optimization program that utilizes genetic algo
 
 ## Data Tables
 
-The program uses the following data tables, which need to be configured in the [src/main/python/resources/tablas.xlsx](./src/main/python/resources/tablas.xlsx) file before running the program:
+The program uses the following data tables, which need to be configured in the [src/main/resources/tables.xlsx](./src/main/resources/tables.xlsx) file before running the program:
 
 - `employees`: Contains information about the employees, including their name, work time in hours for the planning period.
 - `absences`: Contains information about employee absences, including the date and time interval.
