@@ -4,7 +4,7 @@ Este proyecto es un programa de optimización de programación de trabajo que ut
 
 ## Tablas de Datos
 
-El programa utiliza las siguientes tablas de datos, que deben ser configuradas en el archivo [src/main/python/resources/tablas.xlsx](./src/main/python/resources/tablas.xlsx) antes de ejecutar el programa:
+El programa utiliza las siguientes tablas de datos, que deben ser configuradas en el archivo [src/main/resources/tables.xlsx](./src/main/resources/tables.xlsx) antes de ejecutar el programa:
 
 - `employees`: Contiene información sobre los empleados, incluyendo su nombre, tiempo de trabajo en horas, para el periodo a planificar.
 - `absences`: Contiene información sobre las ausencias de los empleados, incluyendo la fecha y el intervalo de tiempo.
