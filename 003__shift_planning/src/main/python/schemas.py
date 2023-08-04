@@ -236,7 +236,7 @@ class Employee:
         34
         """
         intervals = [w['turn'].value.time_interval for _, w in self.workplan.plan.items() if w['turn'] != Turns.off]
-        work_times = [getWorkTime(start, end) for start, end in intervals]
+        work_times = [0] + [getWorkTime(start, end) for start, end in intervals]
         total_work_time = reduce(lambda a,b: a+b, work_times)
 
         time_off_work = self.work_time - total_work_time
@@ -461,7 +461,7 @@ class Workplace:
                     non_compliance_ = r.requirement - assigned
 
                     non_compliance.append(
-                        non_compliance_
+                        non_compliance_ * 1 # TODO: Definir multiplicador
                         if non_compliance_ >= 0
                         else non_compliance_ * - 5 # TODO: Definir multiplicador
                         if non_compliance_ < 0 and assigned <= self.capacity
@@ -668,7 +668,7 @@ class Department:
             Tuple[str, str]: A tuple containing the paths to the exported workplan files for employees and workplaces.
         """
         file_name = str(time()).replace('.','') if not index else index
-        path = f'src/main/resources/excel/{file_name}.xlsx'
+        path = f'src/main/resources/results/{file_name}.xlsx'
 
         with pd.ExcelWriter(path) as f:
             # Generate workplan for employees

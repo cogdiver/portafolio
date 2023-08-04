@@ -324,7 +324,7 @@ class Program:
             # Perform crossover and mutation operations on the population
             population += m.crossover(init_population, self.crossover_probability)
             population += m.mutation(init_population, self.mutation_probability)
-            # population += m.mutation_2(init_population, self.mutation_probability)
+            population += m.mutation_2(init_population, self.mutation_probability)
 
             # Add random individuals
             population += m.create_population(self.size)
