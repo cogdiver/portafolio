@@ -1,6 +1,6 @@
 # GCP QuickStart Templates
 
-GCP QuickStart Templates is a comprehensive collection of project initialization templates designed to streamline the creation of Google Cloud Platform applications. Each template within the repository follows standard architectural practices and is tailored for specific use-cases such as ETL workflows with Dataflow, Cloud Functions-based projects, and more. The templates provide a consistent structure and set of best practices to ensure a smooth and efficient development process, enabling developers to quickly start and deploy scalable, robust, and maintainable GCP services.
+GCP QuickStart Templates is a comprehensive collection of project initialization templates designed to streamline the creation of Google Cloud Platform applications. Each template within the repository follows standard architectural practices and is tailored for specific use-cases. The templates provide a consistent structure and set of best practices to ensure a smooth and efficient development process, enabling developers to quickly start and deploy scalable, robust, and maintainable GCP services.
 
 
 ---
