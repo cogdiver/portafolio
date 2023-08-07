@@ -1,0 +1,5 @@
+{
+  "template": [
+    "template_name (./templates/path/to/template)"
+  ]
+}
