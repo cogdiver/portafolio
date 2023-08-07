@@ -25,35 +25,35 @@ create_template_structure() {
   echo
   echo "Creating directory: templates/$directory"
 
-  # # ------------------
-  # # TEMPLATE STRUCTURE
-  # # ------------------
-  # # Creating directories and files for the new template
-  # mkdir -p templates/$directory/{hooks,docs,images,"{{ cookiecutter.project_slug }}"}/
-  # touch templates/$directory/{docs,images}/.gitkeep
+  # ------------------
+  # TEMPLATE STRUCTURE
+  # ------------------
+  # Creating directories and files for the new template
+  mkdir -p templates/$directory/{hooks,docs,images,"{{ cookiecutter.project_slug }}"}/
+  touch templates/$directory/{docs,images}/.gitkeep
 
-  # # Copying utility files
-  # cp utils/{pre,post}_gen_project.{sh,py} templates/$directory/hooks/
-  # cp utils/cookiecutter.json templates/$directory/
-  # cp utils/.gitignore templates/$directory/
-  # cp utils/.env.sample templates/$directory/
+  # Copying utility files
+  cp utils/{pre,post}_gen_project.{sh,py} templates/$directory/hooks/
+  cp utils/cookiecutter.json templates/$directory/
+  cp utils/.gitignore templates/$directory/
+  cp utils/.env.sample templates/$directory/
 
-  # # Create a README for the new template
-  # echo "# New template project" > templates/$directory/README.md
+  # Create a README for the new template
+  echo "# New template project" > templates/$directory/README.md
 
 
-  # # -----------------------
-  # # INNER PROJECT STRUCTURE
-  # # -----------------------
-  # # Creating directories and files for the inner project in the new template
-  # mkdir -p templates/$directory/"{{ cookiecutter.project_slug }}"/{scripts,docs,images}/
-  # touch templates/$directory/"{{ cookiecutter.project_slug }}"/{docs,images}/.gitkeep
+  # -----------------------
+  # INNER PROJECT STRUCTURE
+  # -----------------------
+  # Creating directories and files for the inner project in the new template
+  mkdir -p templates/$directory/"{{ cookiecutter.project_slug }}"/{scripts,docs,images}/
+  touch templates/$directory/"{{ cookiecutter.project_slug }}"/{docs,images}/.gitkeep
 
-  # # Copy utility files into the inner project in the new template
-  # cp utils/{setup,cleanup,gcp_login}.sh templates/$directory/"{{ cookiecutter.project_slug }}"/scripts/
-  # cp utils/README.md templates/$directory/"{{ cookiecutter.project_slug }}"/
-  # cp utils/.gitignore templates/$directory/"{{ cookiecutter.project_slug }}"/
-  # cp utils/.env.sample templates/$directory/"{{ cookiecutter.project_slug }}"/
+  # Copy utility files into the inner project in the new template
+  cp utils/{setup,cleanup,gcp_login}.sh templates/$directory/"{{ cookiecutter.project_slug }}"/scripts/
+  cp utils/README.md templates/$directory/"{{ cookiecutter.project_slug }}"/
+  cp utils/.gitignore templates/$directory/"{{ cookiecutter.project_slug }}"/
+  cp utils/.env.sample templates/$directory/"{{ cookiecutter.project_slug }}"/
 
 
   echo
