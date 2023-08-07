@@ -89,3 +89,10 @@ Follow these steps to clean up the environment:
 ```
 
 >Be cautious when running these commands, as they will remove specific resources related to this project. Make sure you understand what will be removed before executing them.
+
+
+---
+
+## View All Templates
+
+See all the templates developed in this project, please refer to the [Templates Catalog](./docs/templates_catalog.md) in the documentation folder. This catalog provides a comprehensive and easy-to-follow overview of all available resources, making it easier to choose the right template for your needs.
