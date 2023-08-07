@@ -35,8 +35,6 @@ create_template_structure() {
   # Copying utility files
   cp utils/{pre,post}_gen_project.{sh,py} templates/$directory/hooks/
   cp utils/cookiecutter.json templates/$directory/
-  cp utils/.gitignore templates/$directory/
-  cp utils/.env.sample templates/$directory/
 
   # Create a README for the new template
   echo "# New template project" > templates/$directory/README.md
@@ -67,7 +65,8 @@ create_template_structure() {
 
   echo
   echo WARNING:
-  echo "Remember to add the configuration of the new template to the './cookiecutter.json' file"
+  echo "Add template description './docs/templates_catalog.md'"
+  echo "Add the configuration of the new template to the './cookiecutter.json' file"
   echo "$directory (./templates/$directory)"
 }
 
@@ -75,14 +74,15 @@ create_template_structure() {
 read -p "Enter category: " category
 read -p "Enter subcategory: " subcategory
 read -p "Enter service: " service
+read -p "Enter template: " template
 
 # Check if any of the required inputs is missing
-if [ -z "$category" ] || [ -z "$subcategory" ] || [ -z "$service" ]; then
-  echo "Error: Category, subcategory and service cannot be empty."
+if [ -z "$category" ] || [ -z "$subcategory" ] || [ -z "$service" ] || [ -z "$template" ]; then
+  echo "Error: Category, subcategory, service and template cannot be empty."
   exit 1
 fi
 
-directory="$category/$subcategory/$service"
+directory="$category/$subcategory/$service/$template"
 
 # Check if the directory already exists
 if [ -d "templates/$directory" ]; then
