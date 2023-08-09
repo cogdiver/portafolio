@@ -6,7 +6,7 @@ steps:
       - 'deploy'
       - '${_WORKFLOW_NAME}'
       - '--source'
-      - '${_FOLDER}/workflow.yaml'
+      - '${_FOLDER}/workflows/${_WORKFLOW_NAME}.yaml'
 
   # Copy template files to Cloud Storage
   - name: 'gcr.io/cloud-builders/gsutil'
