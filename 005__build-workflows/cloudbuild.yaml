@@ -29,7 +29,7 @@ steps:
     args:
       - '-c'
       - |
-        sed 's/<PROJECT>/'${_PROJECT}'/g' database/*.sql | sed 's/<DATASET>/'${_DATASET}'/g' | bq query --nouse_legacy_sql
+        sed 's/<PROJECT>/'${_PROJECT}'/g' ${_FOLDER}/database/*.sql | sed 's/<DATASET>/'${_DATASET}'/g' | bq query --nouse_legacy_sql
 
   # # Deploy Cloud Run Service
   # ## Build Image
