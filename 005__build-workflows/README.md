@@ -2,7 +2,7 @@
 
 Proof of concept for event handling with Pub/Sub and Dataflow, generated with Cloud Run and Bigquery as Data Warehouse, with Cloud Functions, Workflows, and Cloud SDK as triggers for test event generation.
 
-![architecture](./docs/architecture.png)
+![architecture](./images/architecture.png)
 
 
 ## Configure enviroment
@@ -27,10 +27,22 @@ Connecting a repository to Cloud Build in Google Cloud Platform involves the fol
 6. Once you have connected your repository, you can create a new Cloud Build trigger that is connected to that repository.
 
 
-## Configure Services
+## Getting Started
+
 Execute the following commands to configure project services
+
 ```bash
-sh scripts/up_project.sh -c # To create necessary services
-sh scripts/up_project.sh -a # To enable required APIs
-sh scripts/up_project.sh -p # To set required permissions
+./scripts/setup.sh -a # To enable required APIs
+./scripts/setup.sh -c # To create necessary services
+./scripts/setup.sh -p # To set required permissions
+```
+
+## Cleaning Up the Environment
+
+Follow these steps to clean up the environment:
+
+```bash
+./scripts/cleanup.sh -p # To set required permissions
+./scripts/cleanup.sh -d # To create necessary services
+./scripts/cleanup.sh -a # To enable required APIs
 ```
