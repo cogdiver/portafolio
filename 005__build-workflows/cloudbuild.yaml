@@ -23,7 +23,6 @@ steps:
       - 'gs://${_BUCKET_NAME}/transforms/'
 
   # Deploy Bigquery Statements
-    # cat ${_FOLDER}/database/*.sql | bq query --nouse_legacy_sql
   - name: 'gcr.io/cloud-builders/gcloud'
     entrypoint: 'bash'
     args:
