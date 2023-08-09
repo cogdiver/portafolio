@@ -1,17 +1,24 @@
 #!/bin/bash
 
-# set login
-./scripts/set_gcp_login.sh
+# --------------------------------------------------------------------------
+# Script for cleaning up resources in a Google Cloud Platform (GCP) project.
+# Offers options to remove permissions, delete services, and disable APIs,
+# simplifying the process of dismantling project components after usage.
+# --------------------------------------------------------------------------
 
-# Load environment variables
+# set login
+./scripts/gcp_login.sh
+
+# Path to the .env file
 env_file=".env"
+
+# Source the .env file to load any existing variables
 source $env_file
 
 
-# Functions
 Help() {
     # Display options menu
-    echo "usage: ./up_project.sh [options]"
+    echo "usage: ./cleanup.sh [options]"
     echo
     echo "-h | --help          Print this message"
     echo "-p | --permissions   Remove Project Permissions"
@@ -98,9 +105,9 @@ elif [[ $# == 1 ]]; then
         -p | --permissions) RemovePermissions;;
         -d | --delete) DeleteServices;;
         -a | --apis) DisableAPIs;;
-        *) echo "'$1' is not a valid option. See ./up_project.sh --help"
+        *) echo "'$1' is not a valid option. See ./cleanup.sh --help"
         Help;;
     esac
 else
-    echo "Only one option is allowed. See ./up_project.sh --help"
+    echo "Only one option is allowed. See ./cleanup.sh --help"
 fi
