@@ -45,7 +45,7 @@ CreateServices() {
         --repo-owner=$GITHUB_REPO_OWNER \
         --branch-pattern=$BRANCH_PATTERN \
         --build-config=$FOLDER/cloudbuild.yaml \
-        --substitutions=_FOLDER="$FOLDER",_WORKFLOW_NAME="$WORKFLOW_NAME",_BUCKET_NAME="$BUCKET_NAME",_PROJECT="$PROJECT",_IMAGE_NAME="$IMAGE_NAME",_REGION="$REGION",_FUNCTION_NAME="$FUNCTION_NAME"
+        --substitutions=_FOLDER="$FOLDER",_WORKFLOW_NAME="$WORKFLOW_NAME",_BUCKET_NAME="$BUCKET_NAME",_PROJECT="$PROJECT",_IMAGE_NAME="$IMAGE_NAME",_REGION="$REGION",_FUNCTION_NAME="$FUNCTION_NAME",_DATASET="$DATASET"
 
     # Storage (Bucket)
     gsutil mb gs://$BUCKET_NAME
