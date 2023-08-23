@@ -1,0 +1,13 @@
+# Directorios
+__pycache__/
+logs/
+
+# Archivos
+*.pyc
+*.pyo
+*.pyd
+*.log
+*.db
+*.sqlite3
+*.env
+.DS_Store
