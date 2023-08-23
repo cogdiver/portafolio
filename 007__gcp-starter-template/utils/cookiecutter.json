@@ -1,5 +1,0 @@
-{
-  "project_title": "Project Title",
-  "project_slug": "{{ cookiecutter.project_title.lower().replace(' ', '_').replace('-', '_') }}",
-  "project_description": "Una pequeña prueba de concepto"
-}

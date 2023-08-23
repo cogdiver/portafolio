@@ -1,5 +1,0 @@
-main:
-  params: [args]
-  steps:
-    - firstStep:
-        return: Hello World 7:28!

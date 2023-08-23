@@ -1,5 +1,0 @@
-__pycache__
-dags/connections/*.json
-logs/*
-plugins/*
-.env
