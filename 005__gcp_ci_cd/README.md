@@ -1,4 +1,4 @@
-# ETL (Cloud Build / Workflows / Cloud Functions / Cloud Run / GCS / PubSub / Dataflow / Bigquery)
+# Google Cloud CI/CD
 
 Proof of concept for event handling with Pub/Sub and Dataflow, generated with Cloud Run and Bigquery as Data Warehouse, with Cloud Functions, Workflows, and Cloud SDK as triggers for test event generation.
 
