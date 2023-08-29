@@ -3,3 +3,6 @@ dags/connections/*.json
 logs/*
 plugins/*
 .env
+
+temp/*
+!.gitkeep
