@@ -76,11 +76,11 @@ DeleteServices() {
 }
 
 DisableAPIs() {
-    gcloud services disable dataflow.googleapis.com
-    gcloud services disable datapipelines.googleapis.com
-    gcloud services disable cloudscheduler.googleapis.com
-    gcloud services disable run.googleapis.com
-    gcloud services disable cloudfunctions.googleapis.com
+    gcloud services disable dataflow.googleapis.com --force
+    gcloud services disable datapipelines.googleapis.com --force
+    gcloud services disable cloudscheduler.googleapis.com --force
+    gcloud services disable run.googleapis.com --force
+    gcloud services disable cloudfunctions.googleapis.com --force
 }
 
 RemovePermissions
