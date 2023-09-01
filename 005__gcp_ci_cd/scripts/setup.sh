@@ -99,9 +99,9 @@ AddtPermissions() {
         --condition=None
 }
 
-# EnableAPIs
+EnableAPIs
 CreateServices
-# AddtPermissions
+AddtPermissions
 
 echo "-------------------------"
 echo "|    Setup completed    |"
