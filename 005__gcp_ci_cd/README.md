@@ -32,9 +32,7 @@ Connecting a repository to Cloud Build in Google Cloud Platform involves the fol
 Execute the following commands to configure project services
 
 ```bash
-./scripts/setup.sh -a # To enable required APIs
-./scripts/setup.sh -c # To create necessary services
-./scripts/setup.sh -p # To set required permissions
+./scripts/setup.sh
 ```
 
 ## Cleaning Up the Environment
@@ -42,7 +40,5 @@ Execute the following commands to configure project services
 Follow these steps to clean up the environment:
 
 ```bash
-./scripts/cleanup.sh -p # To set required permissions
-./scripts/cleanup.sh -d # To create necessary services
-./scripts/cleanup.sh -a # To enable required APIs
+./scripts/cleanup.sh
 ```

@@ -9,22 +9,10 @@
 # set login
 ./scripts/gcp_login.sh
 
-# Path to the .env file
+# Set environment variables using the .env file
 env_file=".env"
-
-# Source the .env file to load any existing variables
 source $env_file
 
-
-Help() {
-    # Display options menu
-    echo "usage: ./cleanup.sh [options]"
-    echo
-    echo "-h | --help          Print this message"
-    echo "-p | --permissions   Remove Project Permissions"
-    echo "-d | --delete        Delete Project services"
-    echo "-a | --apis          Disable APIs"
-}
 
 RemovePermissions() {
     # Set permissions
@@ -95,19 +83,10 @@ DisableAPIs() {
     gcloud services disable cloudfunctions.googleapis.com
 }
 
+RemovePermissions
+DeleteServices
+DisableAPIs
 
-# Options
-if [[ $# == 0 ]]; then
-    Help
-elif [[ $# == 1 ]]; then
-    case "$1" in
-        -h | --help) Help;;
-        -p | --permissions) RemovePermissions;;
-        -d | --delete) DeleteServices;;
-        -a | --apis) DisableAPIs;;
-        *) echo "'$1' is not a valid option. See ./cleanup.sh --help"
-        Help;;
-    esac
-else
-    echo "Only one option is allowed. See ./cleanup.sh --help"
-fi
+echo "-------------------------"
+echo "|   Cleanup completed   |"
+echo "-------------------------"

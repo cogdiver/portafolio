@@ -12,22 +12,10 @@
 # set login
 ./scripts/gcp_login.sh
 
-# Path to the .env file
+# Set environment variables using the .env file
 env_file=".env"
-
-# Source the .env file to load any existing variables
 source $env_file
 
-
-Help() {
-    # Display options menu
-    echo "usage: ./setup.sh [options]"
-    echo
-    echo "-h | --help          Print this message"
-    echo "-a | --apis          Enable Required APIs"
-    echo "-c | --create        Create Project services"
-    echo "-p | --permissions   Add Project Permissions"
-}
 
 EnableAPIs() {
     gcloud services enable dataflow.googleapis.com
@@ -111,19 +99,10 @@ AddtPermissions() {
         --condition=None
 }
 
+# EnableAPIs
+CreateServices
+# AddtPermissions
 
-# Options
-if [[ $# == 0 ]]; then
-    Help
-elif [[ $# == 1 ]]; then
-    case "$1" in
-        -h | --help) Help;;
-        -a | --apis) EnableAPIs;;
-        -c | --create) CreateServices;;
-        -p | --permissions) AddtPermissions;;
-        *) echo "'$1' is not a valid option. See ./setup.sh --help"
-        Help;;
-    esac
-else
-    echo "Only one option is allowed. See ./setup.sh --help"
-fi
+echo "-------------------------"
+echo "|    Setup completed    |"
+echo "-------------------------"
