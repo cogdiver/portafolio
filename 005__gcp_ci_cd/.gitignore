@@ -13,3 +13,6 @@ logs/
 .DS_Store
 
 temp/*
+
+# Include log endpoint
+!api/endpoints/v1/logs
