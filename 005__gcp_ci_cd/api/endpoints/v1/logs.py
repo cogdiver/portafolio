@@ -1,8 +1,8 @@
 from fastapi import APIRouter, HTTPException
 from typing import List, Dict, Any
-from services.pub_sub import publish_message as ps
-import services.bigquery as bq
 from config import PROJECT_ID, TOPIC_NAME
+import services.pub_sub as ps
+import services.bigquery as bq
 
 
 # Create a router to group the endpoints
