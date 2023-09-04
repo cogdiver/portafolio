@@ -1,34 +1,28 @@
 from fastapi import APIRouter, HTTPException
 from typing import List, Dict, Any
-from services.pub_sub import publish_message
+from services.pub_sub import publish_message as ps
 import services.bigquery as bq
-import config
+from config import PROJECT_ID, TOPIC_NAME
 
-# Crea un enrutador para agrupar los endpoints
+
+# Create a router to group the endpoints
 router = APIRouter()
 
-# Base de datos simulada (reemplaza con tu fuente de datos real)
-logs_db: List[Dict] = [
-    {"id": 1, "message": "Log message 1"},
-    {"id": 2, "message": "Log message 2"},
-]
 
-# Define el endpoint para obtener todos los logs en formato JSON
 @router.get("/", response_model=List[dict])
 def get_logs():
-    """Obtiene todos los logs en formato JSON."""
+    """
+    Get all logs in JSON format.
+    """
     return bq.get_logs()
 
 
-# Define el endpoint para crear un nuevo log en formato JSON
 @router.post("/", response_model=dict)
 def create_log(log: str):
-    """Crea un nuevo log en formato JSON."""
-    message_id = publish_message(
-        config.project_id,
-        config.topic_name,
-        log
-    )
+    """
+    Create a new log in JSON format.
+    """
+    message_id = ps.publish_message(PROJECT_ID, TOPIC_NAME, log)
 
     return {
         "id": message_id,
@@ -36,22 +30,24 @@ def create_log(log: str):
     }
 
 
-# Define el endpoint para obtener un log específico por su ID en formato JSON
 @router.get("/{log_id}", response_model=dict)
 def get_log(log_id: int):
-    """Obtiene un log específico por su ID en formato JSON."""
-    log = list(filter(lambda log: log['id']==log_id, logs_db))
-    if not log:
+    """
+    Get a specific log by its ID in JSON format.
+    """
+    logs = bq.get_log_by_id(log_id)
+    if not logs:
         raise HTTPException(status_code=404, detail="Log not found")
-    return log[0]
+    return logs[0]
 
 
-# Define el endpoint para eliminar un log específico por su ID en formato JSON
 @router.delete("/{log_id}", response_model=dict)
 def delete_log(log_id: int):
-    """Elimina un log específico por su ID en formato JSON."""
-    log = list(filter(lambda log: log['id']==log_id, logs_db))
-    if not log:
+    """
+    Delete a specific log by its ID in JSON format.
+    """
+    logs = bq.get_log_by_id(log_id)
+    if not logs:
         raise HTTPException(status_code=404, detail="Log not found")
-    logs_db.remove(log[0])
-    return log[0]
+    bq.delete_log(log_id)
+    return logs[0]
