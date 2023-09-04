@@ -1,5 +1,6 @@
 from fastapi import APIRouter, HTTPException
 from typing import List, Dict, Any
+from services.pub_sub import publish_message
 
 # Crea un enrutador para agrupar los endpoints
 router = APIRouter()
@@ -19,12 +20,16 @@ def get_logs():
 
 # Define el endpoint para crear un nuevo log en formato JSON
 @router.post("/", response_model=dict)
-def create_log(log: dict):
+def create_log(log: str):
     """Crea un nuevo log en formato JSON."""
-    log_id = len(logs_db) + 1
-    log["id"] = log_id
-    logs_db.append(log)
-    return log
+    project_id = "fine-sublime-315119"
+    topic_name = "topic_project_005"
+    message_id = publish_message(project_id, topic_name, log)
+    return {
+        "id": message_id,
+        "message": log
+    }
+
 
 # Define el endpoint para obtener un log específico por su ID en formato JSON
 @router.get("/{log_id}", response_model=dict)
