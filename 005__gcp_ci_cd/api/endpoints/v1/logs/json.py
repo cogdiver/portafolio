@@ -1,6 +1,8 @@
 from fastapi import APIRouter, HTTPException
 from typing import List, Dict, Any
 from services.pub_sub import publish_message
+import os
+
 
 # Crea un enrutador para agrupar los endpoints
 router = APIRouter()
@@ -23,11 +25,14 @@ def get_logs():
 def create_log(log: str):
     """Crea un nuevo log en formato JSON."""
     project_id = "fine-sublime-315119"
+    project_id_2 = os.environ.get('GOOGLE_CLOUD_PROJECT')
     topic_name = "topic_project_005"
     message_id = publish_message(project_id, topic_name, log)
+
     return {
         "id": message_id,
-        "message": log
+        "message": log,
+        "project_id": project_id_2
     }
 
 
