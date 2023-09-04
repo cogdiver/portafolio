@@ -12,7 +12,7 @@ router = APIRouter()
 @router.get("/", response_model=List[dict])
 def get_logs():
     """
-    Get all logs in JSON format.
+    Get all logs.
     """
     return bq.get_logs()
 
@@ -20,7 +20,7 @@ def get_logs():
 @router.post("/", response_model=dict)
 def create_log(log: str):
     """
-    Create a new log in JSON format.
+    Create a new log.
     """
     message_id = ps.publish_message(PROJECT_ID, TOPIC_NAME, log)
 
@@ -31,9 +31,9 @@ def create_log(log: str):
 
 
 @router.get("/{log_id}", response_model=dict)
-def get_log(log_id: int):
+def get_log(log_id: str):
     """
-    Get a specific log by its ID in JSON format.
+    Get a specific log by its ID.
     """
     logs = bq.get_log_by_id(log_id)
     if not logs:
@@ -42,9 +42,9 @@ def get_log(log_id: int):
 
 
 @router.delete("/{log_id}", response_model=dict)
-def delete_log(log_id: int):
+def delete_log(log_id: str):
     """
-    Delete a specific log by its ID in JSON format.
+    Delete a specific log by its ID.
     """
     logs = bq.get_log_by_id(log_id)
     if not logs:
