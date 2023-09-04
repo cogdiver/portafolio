@@ -1,8 +1,8 @@
 from fastapi import APIRouter, HTTPException
 from typing import List, Dict, Any
 from services.pub_sub import publish_message
-import os
-
+import services.bigquery as bq
+import config
 
 # Crea un enrutador para agrupar los endpoints
 router = APIRouter()
@@ -17,22 +17,22 @@ logs_db: List[Dict] = [
 @router.get("/", response_model=List[dict])
 def get_logs():
     """Obtiene todos los logs en formato JSON."""
-    return logs_db
+    return bq.get_logs()
 
 
 # Define el endpoint para crear un nuevo log en formato JSON
 @router.post("/", response_model=dict)
 def create_log(log: str):
     """Crea un nuevo log en formato JSON."""
-    project_id = "fine-sublime-315119"
-    project_id_2 = os.environ.get('GOOGLE_CLOUD_PROJECT')
-    topic_name = "topic_project_005"
-    message_id = publish_message(project_id, topic_name, log)
+    message_id = publish_message(
+        config.project_id,
+        config.topic_name,
+        log
+    )
 
     return {
         "id": message_id,
-        "message": log,
-        "project_id": project_id_2
+        "message": log
     }
 
 
@@ -44,6 +44,7 @@ def get_log(log_id: int):
     if not log:
         raise HTTPException(status_code=404, detail="Log not found")
     return log[0]
+
 
 # Define el endpoint para eliminar un log específico por su ID en formato JSON
 @router.delete("/{log_id}", response_model=dict)
