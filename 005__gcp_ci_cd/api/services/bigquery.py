@@ -39,14 +39,3 @@ def get_log_by_id(log_id):
         WHERE id = '{log_id}'
     """
     return run_query(query)
-
-
-def delete_log(log_id):
-    """
-    Delete a log record from BigQuery by its ID.
-    """
-    query = f"""
-        DELETE FROM `{PROJECT_ID}.{DATASET_NAME}.{TABLE_NAME}`
-        WHERE id = '{log_id}'
-    """
-    client.query(query)
