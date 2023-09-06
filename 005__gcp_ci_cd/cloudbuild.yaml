@@ -1,27 +1,27 @@
 steps:
-  # # Deploy workflow.yaml
-  # - name: 'gcr.io/cloud-builders/gcloud'
-  #   args:
-  #     - 'workflows'
-  #     - 'deploy'
-  #     - '${_WORKFLOW_NAME}'
-  #     - '--source'
-  #     - '${_FOLDER}/workflows/${_WORKFLOW_NAME}.yaml'
+  # Deploy workflow.yaml
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args:
+      - 'workflows'
+      - 'deploy'
+      - '${_WORKFLOW_NAME}'
+      - '--source'
+      - '${_FOLDER}/workflows/${_WORKFLOW_NAME}.yaml'
 
-  # # Copy template files to Cloud Storage
-  # - name: 'gcr.io/cloud-builders/gsutil'
-  #   args:
-  #     - 'cp'
-  #     - '${_FOLDER}/template/*'
-  #     - 'gs://${_BUCKET_NAME}/template/'
+  # Copy template files to Cloud Storage
+  - name: 'gcr.io/cloud-builders/gsutil'
+    args:
+      - 'cp'
+      - '${_FOLDER}/template/*'
+      - 'gs://${_BUCKET_NAME}/template/'
 
-  # # Deploy Bigquery Statements
-  # - name: 'gcr.io/cloud-builders/gcloud'
-  #   entrypoint: 'bash'
-  #   args:
-  #     - '-c'
-  #     - |
-  #       sed -e 's/<PROJECT>/'${_PROJECT}'/g' -e 's/<DATASET>/'${_DATASET}'/g' ${_FOLDER}/database/*.sql | bq query --nouse_legacy_sql
+  # Deploy Bigquery Statements
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        sed -e 's/<PROJECT>/'${_PROJECT}'/g' -e 's/<DATASET>/'${_DATASET}'/g' ${_FOLDER}/database/*.sql | bq query --nouse_legacy_sql
 
   # Deploy Cloud Run Service
   ## Build Image
@@ -59,18 +59,18 @@ steps:
       - '${_REGION}'
       - '--allow-unauthenticated'
 
-  # # Deploy Cloud Function
-  # - name: 'gcr.io/cloud-builders/gcloud'
-  #   args:
-  #     - 'functions'
-  #     - 'deploy'
-  #     - '${_FUNCTION_NAME}'
-  #     - '--runtime'
-  #     - 'python310'
-  #     - '--source'
-  #     - '${_FOLDER}/function/'
-  #     - '--entry-point'
-  #     - 'function_name'
-  #     - '--region'
-  #     - '${_REGION}'
-  #     - '--trigger-http'
+  # Deploy Cloud Function
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args:
+      - 'functions'
+      - 'deploy'
+      - '${_FUNCTION_NAME}'
+      - '--runtime'
+      - 'python310'
+      - '--source'
+      - '${_FOLDER}/function/'
+      - '--entry-point'
+      - 'function_name'
+      - '--region'
+      - '${_REGION}'
+      - '--trigger-http'
