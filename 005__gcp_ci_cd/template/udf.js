@@ -8,11 +8,8 @@
 function process(inJson) {
   const obj = JSON.parse(inJson);
 
-  // Add a field: obj.newField = 1;
-  obj.newField = 1
-  // Modify a field: obj.existingField = '';
-  obj.existingField = ''
-  // Filter a record: return null;
+  obj.id = "id-" + obj.id
+  obj.message = "message-" + obj.message
 
   return JSON.stringify(obj);
 }
