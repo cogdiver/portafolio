@@ -22,12 +22,13 @@ def create_log(log: str):
     """
     Create a new log.
     """
-    message_id = ps.publish_message(PROJECT_ID, TOPIC_NAME, log)
-
-    return {
-        "id": message_id,
+    message = {
+        "id": "12345",
         "message": log
     }
+    message_id = ps.publish_message(PROJECT_ID, TOPIC_NAME, message)
+
+    return {**message, "message_id": message_id}
 
 
 @router.get("/{log_id}", response_model=dict)
