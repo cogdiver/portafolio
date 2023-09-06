@@ -3,7 +3,8 @@ from typing import List, Dict, Any
 from config import PROJECT_ID, TOPIC_NAME
 import services.pub_sub as ps
 import services.bigquery as bq
-
+import uuid
+import json
 
 # Create a router to group the endpoints
 router = APIRouter()
@@ -23,10 +24,10 @@ def create_log(log: str):
     Create a new log.
     """
     message = {
-        "id": "12345",
+        "id": str(uuid.uuid4()),
         "message": log
     }
-    message_id = ps.publish_message(PROJECT_ID, TOPIC_NAME, message)
+    message_id = ps.publish_message(PROJECT_ID, TOPIC_NAME, json.dumps(message))
 
     return {**message, "message_id": message_id}
 
