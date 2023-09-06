@@ -1,5 +1,33 @@
 main:
   params: [args]
   steps:
-    - firstStep:
-        return: Hello World!
+    - pubSubRequest:
+        call: google.pubsub.publish
+        args:
+          topic: projects/your-project-id/topics/your-topic-name
+          message:
+            data: "Mensaje que deseas publicar en Pub/Sub"
+
+    - cloudRunRequest:
+        call: http_request
+        args:
+          method: POST
+          url: https://your-cloud-run-service-url/v1/logs
+          auth:
+            type: OIDC
+          headers:
+            Content-Type: application/json
+          body:
+            message: "8:08"
+
+    - cloudFunctionsRequest:
+        call: http_request
+        args:
+          method: POST
+          url: https://your-cloud-run-service-url/v1/logs
+          auth:
+            type: OIDC
+          headers:
+            Content-Type: application/json
+          body:
+            message: "8:08"

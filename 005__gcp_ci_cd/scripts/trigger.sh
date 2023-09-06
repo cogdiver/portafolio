@@ -23,4 +23,9 @@ source $env_file
 #   -H 'Content-Type: application/json' \
 #   -d '{"message": "7:52"}'
 
-# Publish message on Cloud Functions
+# # Publish message on Cloud Functions
+# curl -X 'POST' \
+#   'http://localhost:8080/v1/logs/' \
+#   -H 'accept: application/json' \
+#   -H 'Content-Type: application/json' \
+#   -d '7:52'
