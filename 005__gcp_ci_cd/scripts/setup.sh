@@ -56,7 +56,7 @@ CreateServices() {
         --gcs-location gs://dataflow-templates-$REGION/latest/PubSub_Subscription_to_BigQuery \
         --region $REGION \
         --staging-location gs://$BUCKET_NAME/temp/ \
-        --parameters inputSubscription=projects/$PROJECT/subscriptions/$SUBSCRIPTION_NAME,javascriptTextTransformGcsPath=gs://$BUCKET_NAME/template/udf.js,javascriptTextTransformFunctionName=process,outputTableSpec=$PROJECT:$DATASET.logs,outputDeadletterTable=$PROJECT:$DATASET.errors
+        --parameters inputSubscription=projects/$PROJECT/subscriptions/$SUBSCRIPTION_NAME,javascriptTextTransformGcsPath=gs://$BUCKET_NAME/storage/udf.js,javascriptTextTransformFunctionName=process,outputTableSpec=$PROJECT:$DATASET.logs,outputDeadletterTable=$PROJECT:$DATASET.errors
 
 }
 
