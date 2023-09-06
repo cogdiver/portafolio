@@ -37,7 +37,7 @@ def get_log(log_id: str):
     """
     logs = bq.get_log_by_id(log_id)
     if not logs:
-        raise HTTPException(status_code=404, detail="Log not found")
+        raise HTTPException(status_code=404, message="Log not found")
     return logs[0]
 
 
@@ -48,6 +48,6 @@ def delete_log(log_id: str):
     """
     logs = bq.get_log_by_id(log_id)
     if not logs:
-        raise HTTPException(status_code=404, detail="Log not found")
+        raise HTTPException(status_code=404, message="Log not found")
     bq.delete_log(log_id)
     return logs[0]

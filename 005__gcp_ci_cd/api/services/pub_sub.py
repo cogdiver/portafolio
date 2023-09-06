@@ -23,7 +23,7 @@ def publish_message(project_id, topic_id, message):
     message_bytes = message.encode("utf-8")
 
     # Publish the message
-    future = publisher.publish(topic_path, data=message_bytes)
+    future = publisher.publish(topic_path, data=message_bytes, id="123456")
 
     # Get the message ID from the future
     message_id = future.result()
