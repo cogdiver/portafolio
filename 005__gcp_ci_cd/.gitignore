@@ -16,3 +16,5 @@ temp/*
 
 # Include log endpoint
 !api/endpoints/v1/logs
+
+api/google-credentials.json

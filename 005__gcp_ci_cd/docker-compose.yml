@@ -10,3 +10,5 @@ services:
       - ./api:/app
     env_file:
       - ./.env
+    environment:
+      - GOOGLE_APPLICATION_CREDENTIALS=/app/google-credentials.json
