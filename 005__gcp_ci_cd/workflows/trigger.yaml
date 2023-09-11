@@ -10,8 +10,12 @@ main:
         call: googleapis.pubsub.v1.projects.topics.publish
         args:
           topic: ${"projects/" + project + "/topics/" + topic}
-          message:
-            data: "trigger-workflows-to-pub/sub"
+          body:
+            messages:
+              - data: "trigger-workflows-to-pub/sub 1"
+                messageId: "1"
+              - data: "trigger-workflows-to-pub/sub 2"
+                messageId: "2"
 
     # - cloudRunRequest:
     #     call: http_request
