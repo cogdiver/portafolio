@@ -1,33 +1,38 @@
 main:
   params: [args]
   steps:
+    - init:
+      assign:
+        - project: ${sys.get_env("GOOGLE_CLOUD_PROJECT_ID")}
+        - topic: "topic_project_005"
+
     - pubSubRequest:
-        call: google.pubsub.publish
+        call: googleapis.pubsub.v1.projects.topics.publish
         args:
-          topic: projects/your-project-id/topics/your-topic-name
+          topic: ${"projects/" + project + "/topics/" + topic}
           message:
-            data: "Mensaje que deseas publicar en Pub/Sub"
+            data: "trigger-workflows-to-pub/sub"
 
-    - cloudRunRequest:
-        call: http_request
-        args:
-          method: POST
-          url: https://your-cloud-run-service-url/v1/logs
-          auth:
-            type: OIDC
-          headers:
-            Content-Type: application/json
-          body:
-            message: "8:08"
+    # - cloudRunRequest:
+    #     call: http_request
+    #     args:
+    #       method: POST
+    #       url: https://your-cloud-run-service-url/v1/logs
+    #       auth:
+    #         type: OIDC
+    #       headers:
+    #         Content-Type: application/json
+    #       body:
+    #         message: "8:08"
 
-    - cloudFunctionsRequest:
-        call: http_request
-        args:
-          method: POST
-          url: https://your-cloud-run-service-url/v1/logs
-          auth:
-            type: OIDC
-          headers:
-            Content-Type: application/json
-          body:
-            message: "8:08"
+    # - cloudFunctionsRequest:
+    #     call: http_request
+    #     args:
+    #       method: POST
+    #       url: https://your-cloud-run-service-url/v1/logs
+    #       auth:
+    #         type: OIDC
+    #       headers:
+    #         Content-Type: application/json
+    #       body:
+    #         message: "8:08"
