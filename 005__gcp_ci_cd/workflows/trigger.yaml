@@ -12,9 +12,9 @@ main:
           topic: ${"projects/" + project + "/topics/" + topic}
           body:
             messages:
-              - data: trigger-workflows-to-pub/sub 1
+              - data: trigger workflows to pub sub 1
                 messageId: "1"
-              - data: trigger-workflows-to-pub/sub 2
+              - data: trigger workflows to pub sub 2
                 messageId: "2"
 
     # - cloudRunRequest:
