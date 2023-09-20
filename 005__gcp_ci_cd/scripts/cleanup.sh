@@ -49,7 +49,7 @@ RemovePermissions() {
 
 DeleteServices() {
     # Bigquery (Dataset)
-    bq rm -r -f $DATASET
+    bq rm -r -f $PROJECT:$DATASET
 
     # Cloud Function
     gcloud functions delete $FUNCTION_NAME --quiet
@@ -67,7 +67,9 @@ DeleteServices() {
     gcloud builds triggers delete $TRIGGER_NAME
 
     # Storage (All Buckets)
-    gsutil rm -r -f $(gsutil ls)
+    # gsutil rm -r -f $(gsutil ls)
+    gsutil rm -r -f gs://$BUCKET_NAME
+    echo Clean others buckets to delete
 
     # Pub/Sub (Topic, Subscription)
     gcloud pubsub topics delete $TOPIC_NAME
@@ -81,6 +83,7 @@ DisableAPIs() {
     gcloud services disable cloudscheduler.googleapis.com --force
     gcloud services disable run.googleapis.com --force
     gcloud services disable cloudfunctions.googleapis.com --force
+    # gcloud services disable secretmanager.googleapis.com --force
 }
 
 RemovePermissions

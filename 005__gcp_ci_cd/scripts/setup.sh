@@ -23,6 +23,8 @@ EnableAPIs() {
     gcloud services enable cloudscheduler.googleapis.com
     gcloud services enable run.googleapis.com
     gcloud services enable cloudfunctions.googleapis.com
+    gcloud services enable secretmanager.googleapis.com
+    # gcloud services enable secretmanager.googleapis.com
 }
 
 CreateServices() {
@@ -33,7 +35,7 @@ CreateServices() {
         --repo-owner=$GITHUB_REPO_OWNER \
         --branch-pattern=$BRANCH_PATTERN \
         --build-config=$FOLDER/cloudbuild.yaml \
-        --substitutions=_FOLDER="$FOLDER",_WORKFLOW_NAME="$WORKFLOW_NAME",_BUCKET_NAME="$BUCKET_NAME",_PROJECT="$PROJECT",_IMAGE_NAME="$IMAGE_NAME",_REGION="$REGION",_FUNCTION_NAME="$FUNCTION_NAME",_DATASET="$DATASET"
+        --substitutions=_FOLDER="$FOLDER",_WORKFLOW_NAME="$WORKFLOW_NAME",_BUCKET_NAME="$BUCKET_NAME",_PROJECT="$PROJECT",_IMAGE_NAME="$IMAGE_NAME",_REGION="$REGION",_FUNCTION_NAME="$FUNCTION_NAME",_DATASET="$DATASET",_TOPIC_NAME="$TOPIC_NAME",_CLOUD_RUN_URL="$CLOUD_RUN_URL",_FUNCTION_URL="$FUNCTION_URL"
 
     # Storage (Bucket)
     gsutil mb gs://$BUCKET_NAME
@@ -51,15 +53,15 @@ CreateServices() {
     gcloud pubsub subscriptions create $SUBSCRIPTION_NAME --topic $TOPIC_NAME
     gcloud pubsub subscriptions create $SUBSCRIPTION_NAME-test --topic $TOPIC_NAME
 
-    # # Dataflow (Template)
-    # gcloud dataflow jobs run $JOB_NAME \
-    #     --gcs-location gs://dataflow-templates-$REGION/latest/PubSub_Subscription_to_BigQuery \
-    #     --region $REGION \
-    #     --staging-location gs://$BUCKET_NAME/temp/ \
-    #     --parameters inputSubscription=projects/$PROJECT/subscriptions/$SUBSCRIPTION_NAME,javascriptTextTransformGcsPath=gs://$BUCKET_NAME/storage/udf.js,javascriptTextTransformFunctionName=process,outputTableSpec=$PROJECT:$DATASET.logs,outputDeadletterTable=$PROJECT:$DATASET.errors
+    # Dataflow (Template)
+    gcloud dataflow jobs run $JOB_NAME \
+        --gcs-location gs://dataflow-templates-$REGION/latest/PubSub_Subscription_to_BigQuery \
+        --region $REGION \
+        --staging-location gs://$BUCKET_NAME/temp/ \
+        --parameters inputSubscription=projects/$PROJECT/subscriptions/$SUBSCRIPTION_NAME,javascriptTextTransformGcsPath=gs://$BUCKET_NAME/storage/udf.js,javascriptTextTransformFunctionName=process,outputTableSpec=$PROJECT:$DATASET.logs,outputDeadletterTable=$PROJECT:$DATASET.errors
 
-    # # Execute trigger
-    # gcloud builds triggers run $TRIGGER_NAME --branch=$BRANCH_PATTERN
+    # Execute trigger
+    gcloud builds triggers run $TRIGGER_NAME --branch=$BRANCH_PATTERN
 }
 
 AddPermissions() {
