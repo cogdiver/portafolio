@@ -23,41 +23,41 @@ steps:
   #     - |
   #       sed -e 's/<PROJECT>/'${_PROJECT}'/g' -e 's/<DATASET>/'${_DATASET}'/g' ${_FOLDER}/database/*.sql | bq query --nouse_legacy_sql
 
-  # # Deploy Cloud Run Service
-  # ## Build Image
-  # - name: 'gcr.io/cloud-builders/docker'
-  #   args:
-  #     - 'build'
-  #     - '-t'
-  #     - '${_REGION}-docker.pkg.dev/${_PROJECT}/${_IMAGE_NAME}/api'
-  #     - '${_FOLDER}/api/.'
+  # Deploy Cloud Run Service
+  ## Build Image
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'build'
+      - '-t'
+      - '${_REGION}-docker.pkg.dev/${_PROJECT}/${_IMAGE_NAME}/api'
+      - '${_FOLDER}/api/.'
 
-  # ## Configure authentication
-  # - name: 'gcr.io/cloud-builders/gcloud'
-  #   args:
-  #     - 'auth'
-  #     - 'configure-docker'
-  #     - '${_REGION}-docker.pkg.dev'
+  ## Configure authentication
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args:
+      - 'auth'
+      - 'configure-docker'
+      - '${_REGION}-docker.pkg.dev'
 
-  # ## Push Image to artifacts repositories
-  # - name: 'gcr.io/cloud-builders/docker'
-  #   args:
-  #     - 'push'
-  #     - '${_REGION}-docker.pkg.dev/${_PROJECT}/${_IMAGE_NAME}/api'
+  ## Push Image to artifacts repositories
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'push'
+      - '${_REGION}-docker.pkg.dev/${_PROJECT}/${_IMAGE_NAME}/api'
 
-  # ## Run Service
-  # - name: 'gcr.io/cloud-builders/gcloud'
-  #   args:
-  #     - 'run'
-  #     - 'deploy'
-  #     - '${_IMAGE_NAME}'
-  #     - '--image'
-  #     - '${_REGION}-docker.pkg.dev/${_PROJECT}/${_IMAGE_NAME}/api'
-  #     - '--platform'
-  #     - 'managed'
-  #     - '--region'
-  #     - '${_REGION}'
-  #     - '--allow-unauthenticated'
+  ## Run Service
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args:
+      - 'run'
+      - 'deploy'
+      - '${_IMAGE_NAME}'
+      - '--image'
+      - '${_REGION}-docker.pkg.dev/${_PROJECT}/${_IMAGE_NAME}/api'
+      - '--platform'
+      - 'managed'
+      - '--region'
+      - '${_REGION}'
+      - '--allow-unauthenticated'
 
   # Deploy Cloud Function
   - name: 'gcr.io/cloud-builders/gcloud'
@@ -70,7 +70,7 @@ steps:
       - '--source'
       - '${_FOLDER}/function/'
       - '--entry-point'
-      - 'function_name'
+      - 'trigger'
       - '--region'
       - '${_REGION}'
       - '--trigger-http'
