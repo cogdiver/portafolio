@@ -4,39 +4,53 @@ main:
     - init:
         assign:
           - project: ${sys.get_env("GOOGLE_CLOUD_PROJECT_ID")}
-          - topic: "topic_project_005"
-          - message1: {"id": "1", "message": "0400 trigger-workflows-to-pub/sub"}
-          - message2: {"id": "2", "message": "0400 trigger-workflows-to-cloud-run"}
-          - message3: {"id": "3", "message": "0400 trigger-workflows-to-function"}
+          - topic_name: ${sys.get_env("TOPIC_NAME")}
+          - cloud_run_url: ${sys.get_env("CLOUD_RUN_URL")}
+          - function_url: ${sys.get_env("FUNCTION_URL")}
+          - uuid_message: {"id": '${uuid.generate()}', "message": '${args.message}'}
 
-    - pubSubRequest:
-        call: googleapis.pubsub.v1.projects.topics.publish
-        args:
-          topic: ${"projects/" + project + "/topics/" + topic}
-          body:
-            messages:
-              - data: ${base64.encode(json.encode(message1))}
+    - publish_message:
+        switch:
+          - condition: ${args.service == "pubsub"}
+            steps:
+            - publish_to_pubsub:
+                call: googleapis.pubsub.v1.projects.topics.publish
+                args:
+                  topic: ${"projects/" + project + "/topics/" + topic_name}
+                  body:
+                    messages:
+                      - data: ${base64.encode(json.encode(uuid_message))}
 
-    - cloudRunRequest:
-        call: http.request
-        args:
-          url: https://image-project-005-55nsgsicwq-uc.a.run.app/v1/logs/
-          method: POST
-          auth:
-            type: OIDC
-          headers:
-            Content-Type: application/json
-          body:
-            message: ${json.encode_to_string(message2)}
+          - condition: ${args.service == "cloud_run"}
+            steps:
+            - publish_to_cloud_run:
+                call: http.request
+                args:
+                  url: ${cloud_run_url + "/v1/logs/"}
+                  method: POST
+                  auth:
+                    type: OIDC
+                  headers:
+                    Content-Type: application/json
+                  body:
+                    message: ${args.message}
 
-    - cloudFunctionsRequest:
-        call: http.request
-        args:
-          url: https://us-central1-fine-sublime-315119.cloudfunctions.net/function_project_005
-          method: POST
-          auth:
-            type: OIDC
-          headers:
-            Content-Type: application/json
-          body:
-            message: ${json.encode_to_string(message3)}
+          - condition: ${args.service == "cloud_functions"}
+            steps:
+            - publish_to_cloud_functions:
+                call: http.request
+                args:
+                  url: ${function_url}
+                  method: POST
+                  auth:
+                    type: OIDC
+                  headers:
+                    Content-Type: application/json
+                  body:
+                    message: ${args.message}
+                    type: ${args.type}
+
+          - condition: true
+            steps:
+            - raise_error:
+                raise: Invalid type. Supported services are [pubsub, cloud_run, cloud_functions].
