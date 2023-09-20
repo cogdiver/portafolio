@@ -32,6 +32,7 @@ Connecting a repository to Cloud Build in Google Cloud Platform involves the fol
 Execute the following commands to configure project services
 
 ```bash
+chmod +x scripts/setup.sh
 ./scripts/setup.sh
 ```
 
@@ -40,5 +41,6 @@ Execute the following commands to configure project services
 Follow these steps to clean up the environment:
 
 ```bash
+chmod +x scripts/cleanup.sh
 ./scripts/cleanup.sh
 ```
