@@ -59,18 +59,18 @@ steps:
   #     - '${_REGION}'
   #     - '--allow-unauthenticated'
 
-  # # Deploy Cloud Function
-  # - name: 'gcr.io/cloud-builders/gcloud'
-  #   args:
-  #     - 'functions'
-  #     - 'deploy'
-  #     - '${_FUNCTION_NAME}'
-  #     - '--runtime'
-  #     - 'python310'
-  #     - '--source'
-  #     - '${_FOLDER}/function/'
-  #     - '--entry-point'
-  #     - 'function_name'
-  #     - '--region'
-  #     - '${_REGION}'
-  #     - '--trigger-http'
+  # Deploy Cloud Function
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args:
+      - 'functions'
+      - 'deploy'
+      - '${_FUNCTION_NAME}'
+      - '--runtime'
+      - 'python310'
+      - '--source'
+      - '${_FOLDER}/function/'
+      - '--entry-point'
+      - 'function_name'
+      - '--region'
+      - '${_REGION}'
+      - '--trigger-http'
