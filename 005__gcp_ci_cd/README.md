@@ -1,4 +1,4 @@
-# ETL (Cloud Build / Workflows / Cloud Functions / Cloud Run / GCS / PubSub / Dataflow / Bigquery)
+# Google Cloud CI/CD
 
 Proof of concept for event handling with Pub/Sub and Dataflow, generated with Cloud Run and Bigquery as Data Warehouse, with Cloud Functions, Workflows, and Cloud SDK as triggers for test event generation.
 
@@ -32,9 +32,8 @@ Connecting a repository to Cloud Build in Google Cloud Platform involves the fol
 Execute the following commands to configure project services
 
 ```bash
-./scripts/setup.sh -a # To enable required APIs
-./scripts/setup.sh -c # To create necessary services
-./scripts/setup.sh -p # To set required permissions
+chmod +x scripts/setup.sh
+./scripts/setup.sh
 ```
 
 ## Cleaning Up the Environment
@@ -42,7 +41,6 @@ Execute the following commands to configure project services
 Follow these steps to clean up the environment:
 
 ```bash
-./scripts/cleanup.sh -p # To set required permissions
-./scripts/cleanup.sh -d # To create necessary services
-./scripts/cleanup.sh -a # To enable required APIs
+chmod +x scripts/cleanup.sh
+./scripts/cleanup.sh
 ```
