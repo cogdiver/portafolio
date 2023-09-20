@@ -2,17 +2,7 @@ import json
 import uuid
 import requests
 from google.cloud import pubsub_v1
-
-
-# # Nombre del tema de Pub/Sub
-# # URL del servicio de Cloud Run
-# TOPIC_NAME = "<TOPIC_NAME>"
-# CLOUD_RUN_URL = "<CLOUD_RUN_URL>"
-# PROJECT_ID = "<PROJECT>"
-TOPIC_NAME = "topic_project_005"
-CLOUD_RUN_URL = "<CLOUD_RUN_URL>"
-PROJECT_ID = "fine-sublime-315119"
-
+from config import TOPIC_NAME, CLOUD_RUN_URL, PROJECT_ID
 
 
 def send_to_pubsub(pubsub_message_json):
@@ -60,10 +50,10 @@ def send_to_cloud_run(message):
     data = {"message": message}
 
     # Make an HTTP POST request to the Cloud Run service
-    response = requests.post(CLOUD_RUN_URL, data=json.dumps(data), headers=headers)
+    response = requests.post(f'{CLOUD_RUN_URL}/v1/logs/', data=json.dumps(data), headers=headers)
 
     # Return the response text and status code as a tuple
-    return response.text, response.status_code
+    return response.json(), response.status_code
 
 
 def trigger(request):
