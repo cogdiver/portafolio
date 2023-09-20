@@ -39,7 +39,7 @@ CreateServices() {
     gsutil mb gs://$BUCKET_NAME
 
     # Bigquery (Dataset)
-    bq mk $DATASET
+    bq mk -f $DATASET
 
     # Artifact Registry (Repository)
     gcloud artifacts repositories create $IMAGE_NAME \
@@ -51,16 +51,18 @@ CreateServices() {
     gcloud pubsub subscriptions create $SUBSCRIPTION_NAME --topic $TOPIC_NAME
     gcloud pubsub subscriptions create $SUBSCRIPTION_NAME-test --topic $TOPIC_NAME
 
-    # Dataflow (Template)
-    gcloud dataflow jobs run $JOB_NAME \
-        --gcs-location gs://dataflow-templates-$REGION/latest/PubSub_Subscription_to_BigQuery \
-        --region $REGION \
-        --staging-location gs://$BUCKET_NAME/temp/ \
-        --parameters inputSubscription=projects/$PROJECT/subscriptions/$SUBSCRIPTION_NAME,javascriptTextTransformGcsPath=gs://$BUCKET_NAME/storage/udf.js,javascriptTextTransformFunctionName=process,outputTableSpec=$PROJECT:$DATASET.logs,outputDeadletterTable=$PROJECT:$DATASET.errors
+    # # Dataflow (Template)
+    # gcloud dataflow jobs run $JOB_NAME \
+    #     --gcs-location gs://dataflow-templates-$REGION/latest/PubSub_Subscription_to_BigQuery \
+    #     --region $REGION \
+    #     --staging-location gs://$BUCKET_NAME/temp/ \
+    #     --parameters inputSubscription=projects/$PROJECT/subscriptions/$SUBSCRIPTION_NAME,javascriptTextTransformGcsPath=gs://$BUCKET_NAME/storage/udf.js,javascriptTextTransformFunctionName=process,outputTableSpec=$PROJECT:$DATASET.logs,outputDeadletterTable=$PROJECT:$DATASET.errors
 
+    # # Execute trigger
+    # gcloud builds triggers run $TRIGGER_NAME --branch=$BRANCH_PATTERN
 }
 
-AddtPermissions() {
+AddPermissions() {
     # Set permissions
     PROJECT_NUMBER=`gcloud projects describe $PROJECT --format='value(projectNumber)'`
 
@@ -68,40 +70,40 @@ AddtPermissions() {
     gcloud projects add-iam-policy-binding $PROJECT \
         --member=serviceAccount:$PROJECT_NUMBER@cloudbuild.gserviceaccount.com \
         --role=roles/workflows.admin \
-        --condition=None
+        --condition=None &> /dev/null
 
     # To execute bigquery queries from Cloud Build
     gcloud projects add-iam-policy-binding $PROJECT \
         --member=serviceAccount:$PROJECT_NUMBER@cloudbuild.gserviceaccount.com \
         --role=roles/bigquery.admin \
-        --condition=None
+        --condition=None &> /dev/null
 
     # To deploy Cloud Run services from Cloud Build
     gcloud projects add-iam-policy-binding $PROJECT \
         --member=serviceAccount:$PROJECT_NUMBER@cloudbuild.gserviceaccount.com \
         --role=roles/run.admin \
-        --condition=None
+        --condition=None &> /dev/null
     gcloud projects add-iam-policy-binding $PROJECT \
         --member=serviceAccount:$PROJECT_NUMBER@cloudbuild.gserviceaccount.com \
         --role=roles/run.serviceAgent \
-        --condition=None
+        --condition=None &> /dev/null
 
     # To deploy Cloud Function from Cloud Build
     gcloud projects add-iam-policy-binding $PROJECT \
         --member=serviceAccount:$PROJECT_NUMBER@cloudbuild.gserviceaccount.com \
         --role=roles/cloudfunctions.admin \
-        --condition=None
+        --condition=None &> /dev/null
 
     # To write pub/sub message on bigquery
     gcloud projects add-iam-policy-binding $PROJECT \
         --member=serviceAccount:service-$PROJECT_NUMBER@gcp-sa-pubsub.iam.gserviceaccount.com \
         --role=roles/bigquery.admin \
-        --condition=None
+        --condition=None &> /dev/null
 }
 
 EnableAPIs
 CreateServices
-AddtPermissions
+AddPermissions
 
 echo "-------------------------"
 echo "|    Setup completed    |"

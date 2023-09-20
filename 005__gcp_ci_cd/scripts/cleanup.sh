@@ -22,29 +22,29 @@ RemovePermissions() {
     gcloud projects remove-iam-policy-binding $PROJECT \
         --member=serviceAccount:$PROJECT_NUMBER@cloudbuild.gserviceaccount.com \
         --role=roles/workflows.admin \
-        --condition=None
+        --condition=None &> /dev/null
 
     # To execute bigquery queries from Cloud Build
     gcloud projects remove-iam-policy-binding $PROJECT \
         --member=serviceAccount:$PROJECT_NUMBER@cloudbuild.gserviceaccount.com \
         --role=roles/bigquery.admin \
-        --condition=None
+        --condition=None &> /dev/null
 
     # To deploy Cloud Run services from Cloud Build
     gcloud projects remove-iam-policy-binding $PROJECT \
         --member=serviceAccount:$PROJECT_NUMBER@cloudbuild.gserviceaccount.com \
         --role=roles/run.admin \
-        --condition=None
+        --condition=None &> /dev/null
     gcloud projects remove-iam-policy-binding $PROJECT \
         --member=serviceAccount:$PROJECT_NUMBER@cloudbuild.gserviceaccount.com \
         --role=roles/run.serviceAgent \
-        --condition=None
+        --condition=None &> /dev/null
 
     # To deploy Cloud Function from Cloud Build
     gcloud projects remove-iam-policy-binding $PROJECT \
         --member=serviceAccount:$PROJECT_NUMBER@cloudbuild.gserviceaccount.com \
         --role=roles/cloudfunctions.admin \
-        --condition=None
+        --condition=None &> /dev/null
 }
 
 DeleteServices() {
