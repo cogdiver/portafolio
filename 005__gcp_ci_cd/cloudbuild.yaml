@@ -8,20 +8,20 @@ steps:
       - '--source'
       - '${_FOLDER}/workflows/${_WORKFLOW_NAME}.yaml'
 
-  # # Copy files to Cloud Storage
-  # - name: 'gcr.io/cloud-builders/gsutil'
-  #   args:
-  #     - 'cp'
-  #     - '${_FOLDER}/storage/*'
-  #     - 'gs://${_BUCKET_NAME}/storage/'
+  # Copy files to Cloud Storage
+  - name: 'gcr.io/cloud-builders/gsutil'
+    args:
+      - 'cp'
+      - '${_FOLDER}/storage/*'
+      - 'gs://${_BUCKET_NAME}/storage/'
 
-  # # Deploy Bigquery Statements
-  # - name: 'gcr.io/cloud-builders/gcloud'
-  #   entrypoint: 'bash'
-  #   args:
-  #     - '-c'
-  #     - |
-  #       sed -e 's/<PROJECT>/'${_PROJECT}'/g' -e 's/<DATASET>/'${_DATASET}'/g' ${_FOLDER}/database/*.sql | bq query --nouse_legacy_sql
+  # Deploy Bigquery Statements
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        sed -e 's/<PROJECT>/'${_PROJECT}'/g' -e 's/<DATASET>/'${_DATASET}'/g' ${_FOLDER}/database/*.sql | bq query --nouse_legacy_sql
 
   # Deploy Cloud Run Service
   ## Build Image
