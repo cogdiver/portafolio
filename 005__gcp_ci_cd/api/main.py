@@ -9,4 +9,4 @@ app.include_router(endpoints_v1_logs, prefix="/v1/logs", tags=["v1/logs"])
 
 @app.get("/")
 def read_root():
-    return {"message": "Hello, World!"}
+    return {"message": "Welcome to GCP CI/CD project"}
