@@ -7,6 +7,8 @@ steps:
       - '${_WORKFLOW_NAME}'
       - '--source'
       - '${_FOLDER}/workflows/${_WORKFLOW_NAME}.yaml'
+      - '--set-env-vars'
+      - 'TOPIC_NAME=${_TOPIC_NAME},CLOUD_RUN_URL=${_CLOUD_RUN_URL},FUNCTION_URL=${_FUNCTION_URL}'
 
   # Copy files to Cloud Storage
   - name: 'gcr.io/cloud-builders/gsutil'
@@ -73,4 +75,7 @@ steps:
       - 'trigger'
       - '--region'
       - '${_REGION}'
+      - '--set-env-vars'
+      - 'TOPIC_NAME=${_TOPIC_NAME},CLOUD_RUN_URL=${_CLOUD_RUN_URL},PROJECT_ID=${_PROJECT}'
       - '--trigger-http'
+      - '--allow-unauthenticated'
