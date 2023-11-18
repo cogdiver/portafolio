@@ -3,7 +3,7 @@
 
 |ID|State|Name|Description|
 |--|-----|----|-----------|
-|1|`finished`|Youtube Clone|
+|1|`finished`|Youtube Clone|A front-end clone of YouTube's home page using HTML, CSS, and JavaScript, showcasing layout replication for educational purposes. [see more](./001__youtube_clone/)
 |2|`developing`|Netflix Clone|Developing a user interface that emulates Netflix, utilizing React and styled-components for a sleek, responsive design with the same look and feel. [see more](./002__netflix_clone/)
 |3|`finished`|Shift Planning|Shift planning program that utilizes genetic algorithms to find the optimal assignment of employees to work shifts within a specified time period. [see more](./003__shift_planning/)
 |4|`developing`|Multicloud ETL|Multicloud ETL project leveraging Composer for orchestrating data flows. Integrates VM services, functions, storage, and databases across various cloud platforms. [see more](./004__multicloud_etl/)
