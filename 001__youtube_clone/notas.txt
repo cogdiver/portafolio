@@ -1,4 +1,0 @@
-sombra de menu-burger
-tipos de fuentes mas delgadas
-faltan iconos
-crear etiqueda para los iconos del menu-right

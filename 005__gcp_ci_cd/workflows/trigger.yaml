@@ -1,0 +1,56 @@
+main:
+  params: [args]
+  steps:
+    - init:
+        assign:
+          - project: ${sys.get_env("GOOGLE_CLOUD_PROJECT_ID")}
+          - topic_name: ${sys.get_env("TOPIC_NAME")}
+          - cloud_run_url: ${sys.get_env("CLOUD_RUN_URL")}
+          - function_url: ${sys.get_env("FUNCTION_URL")}
+          - uuid_message: {"id": '${uuid.generate()}', "message": '${args.message}'}
+
+    - publish_message:
+        switch:
+          - condition: ${args.service == "pubsub"}
+            steps:
+            - publish_to_pubsub:
+                call: googleapis.pubsub.v1.projects.topics.publish
+                args:
+                  topic: ${"projects/" + project + "/topics/" + topic_name}
+                  body:
+                    messages:
+                      - data: ${base64.encode(json.encode(uuid_message))}
+
+          - condition: ${args.service == "cloud_run"}
+            steps:
+            - publish_to_cloud_run:
+                call: http.request
+                args:
+                  url: ${cloud_run_url + "/v1/logs/"}
+                  method: POST
+                  auth:
+                    type: OIDC
+                  headers:
+                    Content-Type: application/json
+                  body:
+                    message: ${args.message}
+
+          - condition: ${args.service == "cloud_functions"}
+            steps:
+            - publish_to_cloud_functions:
+                call: http.request
+                args:
+                  url: ${function_url}
+                  method: POST
+                  auth:
+                    type: OIDC
+                  headers:
+                    Content-Type: application/json
+                  body:
+                    message: ${args.message}
+                    type: ${args.type}
+
+          - condition: true
+            steps:
+            - raise_error:
+                raise: Invalid type. Supported services are [pubsub, cloud_run, cloud_functions].

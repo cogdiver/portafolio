@@ -1,0 +1,4 @@
+CREATE OR REPLACE TABLE `<PROJECT>.<DATASET>.logs` (
+  id STRING,
+  message STRING
+);
