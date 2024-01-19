@@ -1,6 +1,6 @@
 # Streamline Notify: An Event-Driven ETL Pipeline
 
-The project focuses on implementing a cloud-based data processing system for efficiently managing files from multiple users. The main objective is to clean and store the received files using real-time streaming. The system utilizes Google Cloud Platform (GCP) services to achieve this functionality.
+The project focuses on implementing a cloud-based data processing system for efficiently managing files from multiple users. The main objective is to clean and store the received files using real-time streaming. The system utilizes Google Cloud Platform (GCP) services to achieve this functionality and managed with Terraform for robust architecture
 
 ## Steps for File Processing
 
