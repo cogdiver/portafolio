@@ -3,7 +3,7 @@
 
 |ID|State|Name|Description|
 |-|-|-|-|
-|7|`developing`|GCP Starter Templates|This project is a comprehensive collection of project initialization templates designed to streamline the creation of Google Cloud Platform applications. [see more](./007__gcp_starter_template/)
+|7|`developing`|CaseTracker Automator|Automate case tracking & updates via Excel, sending timely WhatsApp messages and emails for efficient case management. [see more](./007__case_tracker_automator/)
 |6|`developing`|Streamline Notify|Automated ETL process leveraging GCS for file upload triggers. Utilizes Dataflow for processing, inserts data into BigQuery, and concludes with notification events. Managed with Terraform for robust architecture. [see more](./006__streamline_notify/)
 |5|`finished`|GCP CI/CD|Proof of concept for event handling with Pub/Sub and Dataflow, generated with Cloud Run and Bigquery as Data Warehouse, with Cloud Functions, Workflows and Cloud SDK as triggers for test event generation. [see more](./005__gcp_ci_cd/)
 |4|`developing`|Multicloud ETL|Multicloud ETL project leveraging Composer for orchestrating data flows. Integrates VM services, functions, storage, and databases across various cloud platforms. [see more](./004__multicloud_etl/)
