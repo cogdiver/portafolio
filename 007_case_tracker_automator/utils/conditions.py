@@ -5,11 +5,11 @@ from utils.clean import is_more_than_n_days_ago
 from utils.clean import is_today
 from utils.clean import get_follow_up_message
 from utils.clean import get_documentation_message
-from utils.clean import missing_columns
 from utils.clean import get_html_from_df
 from services.whatsapp import send_whatsapp_message
 from services.gmail import send_gmail_message
 from services.gmail import send_gmail_reply_whatsapp_message
+from vars import DOCUMENTATION_DAY, PSICO_EMAIL
 
 
 def follow_up_whatsapp_message(df, execute=False):
@@ -32,7 +32,7 @@ def follow_up_whatsapp_message(df, execute=False):
 
 
 def documentation_whatsapp_message(df, execute=False):
-    if datetime.now().weekday() == 6:
+    if datetime.now().weekday() == DOCUMENTATION_DAY:
         _filter_1 = df["REMISIÓN EXTERNA"].str.lower() == "sí"
         _filter_2 = df["ESTADO DEL CASO"].str.lower() == "espera"
         _filter_3 = df["FECHA DE CIERRE"] != ""
@@ -59,7 +59,7 @@ def general_info_gmail_message(df):
 
     message = get_html_from_df(df_filtered)
     subject = "Case Tracker Automator"
-    receiver = "psicologia.calimionorte@arquidiocesanos.edu.co"
+    receiver = PSICO_EMAIL
     body_type = 'html'
     cc_users = None
 

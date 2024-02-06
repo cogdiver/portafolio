@@ -1,10 +1,11 @@
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+from vars import PSICO_EMAIL, PSICO_EMAIL_PASS, CC_EMAILS
 
 # Configurar los parámetros del correo
-gmail_user = 'psicologia.calimionorte@arquidiocesanos.edu.co'
-gmail_password = 'pkpx xoxw qvtt uovz'
+gmail_user = PSICO_EMAIL
+gmail_password = PSICO_EMAIL_PASS
 
 
 def send_gmail_message(message, subject, receiver, body_type='plain', cc_users=None):
@@ -37,7 +38,7 @@ def send_gmail_reply_whatsapp_message(row):
     receiver = row["CORREO"]
     subject = "Confirmación de Contacto por WhatsApp"
     body_type = "plain"
-    cc_users = "maryen.chamorro.ladino@gmail.com"
+    cc_users = CC_EMAILS
 
     message = f'''Se envió el siguiente mensaje al número de whatsapp {phone_number}
     {row["MENSAJE"]}

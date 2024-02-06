@@ -17,8 +17,9 @@ def main():
     df = pd.read_excel(path, dtype=str)
 
     # for c in required_columns + important_columns:
+    df = df.fillna("")
     _filter = df["ACTIVO"].str.lower() == "sí"
-    df = df[_filter].fillna("")
+    df = df[_filter]
 
     df["CONTACTO_BASE"] = df["CONTACTO"].apply(clean_number)
     df["GRADO_BASE"] = df["GRADO"].apply(get_grade_base)

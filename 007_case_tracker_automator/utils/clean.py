@@ -1,6 +1,7 @@
 import re
 from datetime import datetime, timedelta
 import locale
+from vars import PSICO_NAME, ASSISTANCE
 
 locale.setlocale(locale.LC_TIME, 'Spanish_Spain')
 
@@ -98,13 +99,14 @@ def saludo_segun_hora():
 def get_follow_up_message(row):
     student_name = row["NOMBRE DEL ESTUDIANTE"]
     grade = row["GRADO"]
+    parentezco = row["PARENTEZCO"]
 
     message = f"""Hola, {saludo_segun_hora()},
     Espero que se encuentre muy bien.
-    Se está comunicando con usted la psicologa Maryen
+    Se está comunicando con usted la psicologa {PSICO_NAME}
     del colegio de {student_name} del grado {grade}.
-    Me gustaría saber como va el proceso médico de su hijo de acuerdo
-    a la remisión externa que se le realizó
+    Me gustaría saber como va el proceso médico de su {parentezco} de acuerdo
+    a la remisión externa que se le realizó.
     """
 
     # Eliminar saltos de línea y espacios extra
@@ -124,7 +126,7 @@ def get_documentation_message(row):
     que certifiquen las atenciones para poder darle el cierre adecuado.
     Quedo atenta a que los haga llegar a mi oficina.
     En caso de encontrarme al venir al colegio,
-    lo puedes dejar con las secretarias que me harán llegar los documentos.
+    lo puedes dejar con {ASSISTANCE} que me harán llegar los documentos.
     Muchas gracias, feliz día.
     """
 
@@ -193,21 +195,24 @@ def get_general_info_messages(df, required_columns, important_columns):
 
 
 def get_html_from_df(df):
-    get_tr = lambda r: f'<tr>{r}</tr>'
-    get_th = lambda v: f'<th style="border: 1px solid #979797;">{v}</th>'
+    if not df.empty:
+        get_tr = lambda r: f'<tr>{r}</tr>'
+        get_th = lambda v: f'<th style="border: 1px solid #979797;">{v}</th>'
 
-    # Get html for columns
-    columns = [get_th(c) for c in df.columns]
-    html = get_tr(''.join(columns))
+        # Get html for columns
+        columns = [get_th(c) for c in df.columns]
+        html = get_tr(''.join(columns))
 
-    # Get html for rows
-    html += df.map(get_th).sum(axis=1).apply(get_tr).sum()
+        # Get html for rows
+        html += df.fillna("").map(get_th).sum(axis=1).apply(get_tr).sum()
 
-    # Get completed html
-    message = f'''
-    <table style="border-collapse: collapse; width: 100%; font-family: sans-serif;">
-    {html}
-    </table>
-    '''
+        # Get completed html
+        message = f'''
+        <table style="border-collapse: collapse; width: 100%; font-family: sans-serif;">
+        {html}
+        </table>
+        '''
+    else:
+        message = "No hay casos para hacer seguimiento"
 
     return message
